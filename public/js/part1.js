@@ -37,7 +37,7 @@ $(document).on('ready', function() {
 	
 	
 	$('#signup').click(function(){
-		//console.log('creating marble');
+		console.log('Signing up driver');
 		var driverobj = 	{
 						type: 'signup',
 						firstname: $('input[name="firstname"]').val().replace(' ', ''),
@@ -51,7 +51,7 @@ $(document).on('ready', function() {
 						v: 1
 					};
 //		if(obj.user && obj.name && obj.color){
-//			console.log('creating marble, sending', obj);
+			console.log('creating marble, sending', driverobj);
 			ws.send(JSON.stringify(driverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
