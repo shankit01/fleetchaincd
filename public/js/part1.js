@@ -52,7 +52,7 @@ $(document).on('ready', function() {
 					};
 //		if(obj.user && obj.name && obj.color){
 			console.log('creating marble, sending', driverobj);
-//			ws.send(JSON.stringify(driverobj));
+			ws.send(JSON.stringify(driverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
 //			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
