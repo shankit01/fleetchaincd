@@ -21,7 +21,7 @@ module.exports.process_msg = function(ws, data){
 		else if(data.type == 'signup'){
 			console.log('its a create!');
 			//if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.signup_driver(data.firstname, data.lastname, data.email, data.password], cb_invoked);	//create a new marble
+				chaincode.invoke.signup_driver(data.firstname, data.lastname, data.email, data.password, cb_invoked);	//create a new marble
 			//}
 		}
 		else if(data.type == 'get'){
