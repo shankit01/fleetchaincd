@@ -51,7 +51,7 @@ $(document).on('ready', function() {
 						v: 1
 					};
 //		if(obj.user && obj.name && obj.color){
-			console.log('creating marble, sending', driverobj);
+			console.log('doing sign up, sending', driverobj);
 			ws.send(JSON.stringify(driverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
