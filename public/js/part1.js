@@ -202,7 +202,7 @@ $(document).on('ready', function() {
 		$('#driverdetailsPanel').fadeIn(300);
 		$('#createPanel').hide();
 		$('#signupPanel').hide();
-		$('#home').hide();
+		//$('#home').hide();
 		$('#checkdriverPanel').hide();
 		
 		
@@ -217,7 +217,7 @@ $(document).on('ready', function() {
 		$('#checkdriverPanel').fadeIn(300);
 		$('#createPanel').hide();
 		$('#signupPanel').hide();
-		$('#homePanel').hide();
+		//$('#homePanel').hide();
 		
 		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},'', part + '/checkdriver');						//put it in url so we can f5
