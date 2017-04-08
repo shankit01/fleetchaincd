@@ -84,9 +84,9 @@ $(document).on('ready', function() {
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 			
-		var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
-		
-		$('input[name="driverdetailsemail"]').val(driverdetailsmail);
+//		var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
+//		
+//		$('input[name="driverdetailsemail"]').val(driverdetailsmail);
 		showDriverDetailsPanel();
 		
 		return false;
