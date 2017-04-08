@@ -183,6 +183,8 @@ $(document).on('ready', function() {
 			
 			$('#driverlist').load=drivers;
 			
+			//ws.send(JSON.stringify({type: 'getdriverlist', v: 1}));						//need to wait a bit
+			
 		}, 1000);
 	}
 	
