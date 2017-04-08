@@ -1,0 +1,10 @@
+#driverlistPanel(hidden).panel
+	div
+		h1 List of registered drivers
+		hr
+		
+		#description.hint List of registered drivers
+		
+		ul
+  			each name, email in #driverlist
+   				 li = name + '  ' + email
