@@ -111,6 +111,10 @@ $(document).on('ready', function() {
 	$('#checkdriverLink').click(function(){
 		showcheckdriverPanel();
 	});
+	
+	$('#driverdetailsLink').click(function(){
+		showDriverDetailsPanel();
+	});
 
 	
 	//marble color picker
@@ -195,13 +199,14 @@ $(document).on('ready', function() {
 	
 	function showDriverDetailsPanel(){
 		
+		$('#driverdetailsPanel').fadeIn(300);
 		$('#createPanel').hide();
 		$('#signupPanel').hide();
 		$('#home').hide();
 		$('#checkdriverPanel').hide();
 		
 		
-		$('#driverdetailsPanel').fadeIn(300);
+		
 		
 		
 	}
