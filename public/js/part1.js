@@ -65,6 +65,35 @@ $(document).on('ready', function() {
 	});
 	
 	
+
+	$('#checkdriverdetails').click(function(){
+		console.log('checking up driver');
+		var checkdriverobj = 	{
+						type: 'checkdriverdetails',
+						
+						checkdriveremail: $('input[name="checkdriveremail"]').val().replace(' ', ''),
+						
+						v: 1
+					};
+//		if(obj.user && obj.name && obj.color){
+			console.log('doing sign up, sending', driverobj);
+//			ws.send(JSON.stringify(driverobj));
+//			showHomePanel();
+//			$('.colorValue').html('Color');											//reset
+//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
+//			$('.createball').css('border', '2px dashed #fff');						//reset
+//		}
+			
+			$('input[name="driverdetailsemail"]').val()
+		
+		showDriverDetailsPanel();
+		
+		return false;
+	});
+	
+	
+	
+	
 	
 	$('#homeLink').click(function(){
 		showHomePanel();
@@ -163,6 +192,20 @@ $(document).on('ready', function() {
 	}
 	
 	
+	function showDriverDetailsPanel(){
+		
+		$('#createPanel').hide();
+		$('#signupPanel').hide();
+		$('#home').hide();
+		
+		
+		$('#driverdetailsPanel').fadeIn(300);
+		
+		
+	}
+	
+	
+	
 	function showcheckdriverPanel(){
 		$('#checkdriverPanel').fadeIn(300);
 		$('#createPanel').hide();
@@ -172,20 +215,16 @@ $(document).on('ready', function() {
 		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},'', part + '/checkdriver');						//put it in url so we can f5
 		
-		console.log('getting list of drivers');
-		setTimeout(function(){
-		//	$('#user1wrap').html('');											//reset the panel
-		//	$('#user2wrap').html('');
-		//	ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
-		//	ws.send(JSON.stringify({type: 'chainstats', v: 1}));
-			
-			var drivers = {1:'mainakmandal@hotmail.com', 2:'amitchandra@in.ibm.com'};	
-			
-			$('#driverlist').load=drivers;
-			
-			//ws.send(JSON.stringify({type: 'getdriverlist', v: 1}));						//need to wait a bit
-			
-		}, 1000);
+//		console.log('getting list of drivers');
+//		setTimeout(function(){
+//		//	$('#user1wrap').html('');											//reset the panel
+//		//	$('#user2wrap').html('');
+//		//	ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
+//		//	ws.send(JSON.stringify({type: 'chainstats', v: 1}));
+//			
+//									//need to wait a bit
+//			
+//		}, 1000);
 	}
 	
 	//show Signup panel page
