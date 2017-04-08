@@ -179,7 +179,7 @@ $(document).on('ready', function() {
 		//	ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
 		//	ws.send(JSON.stringify({type: 'chainstats', v: 1}));
 			
-			var drivers = {'Mainak Mandal':'mainakmandal@hotmail.com','Amit Chandra':'amitchandra@in.ibm.com'};	
+			var drivers = {1:'mainakmandal@hotmail.com', 2:'amitchandra@in.ibm.com'};	
 			
 			$('#driverlist').load=drivers;
 			
