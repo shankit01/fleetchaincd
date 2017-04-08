@@ -68,15 +68,13 @@ $(document).on('ready', function() {
 
 	$('#checkdriverdetails').click(function(){
 		console.log('checking up driver');
-		var checkdriverobj = 	{
+		var checkdriverobj = {
 						type: 'checkdriverdetails',
-						
 						checkdriveremail: $('input[name="checkdriveremail"]').val().replace(' ', ''),
-						
 						v: 1
 					};
 //		if(obj.user && obj.name && obj.color){
-			console.log('doing sign up, sending', driverobj);
+			//console.log('doing sign up, sending', driverobj);
 //			ws.send(JSON.stringify(driverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
