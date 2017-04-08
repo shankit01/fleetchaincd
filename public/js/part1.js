@@ -78,8 +78,8 @@ $(document).on('ready', function() {
 		$('input[name="name"]').val('r' + randStr(6));
 	});
 	
-	$('#driverlistlink').click(function(){
-		showdriverlistPanel();
+	$('#checkdriverLink').click(function(){
+		showcheckdriverPanel();
 	});
 
 	
@@ -163,14 +163,14 @@ $(document).on('ready', function() {
 	}
 	
 	
-	function showdriverlistPanel(){
-		$('#driverlistPanel').fadeIn(300);
+	function showcheckdriverPanel(){
+		$('#checkdriverPanel').fadeIn(300);
 		$('#createPanel').hide();
 		$('#signupPanel').hide();
 		$('#homePanel').hide();
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},'', part + '/driverlist');						//put it in url so we can f5
+		window.history.pushState({},'', part + '/checkdriver');						//put it in url so we can f5
 		
 		console.log('getting list of drivers');
 		setTimeout(function(){
