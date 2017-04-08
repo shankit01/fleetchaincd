@@ -77,6 +77,10 @@ $(document).on('ready', function() {
 	$('#createLink').click(function(){
 		$('input[name="name"]').val('r' + randStr(6));
 	});
+	
+	$('#driverlistlink').click(function(){
+		showdriverlistPanel();
+	});
 
 	
 	//marble color picker
@@ -155,6 +159,30 @@ $(document).on('ready', function() {
 			$('#user2wrap').html('');
 			ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
 			ws.send(JSON.stringify({type: 'chainstats', v: 1}));
+		}, 1000);
+	}
+	
+	
+	function showdriverlistPanel(){
+		$('#driverlistPanel').fadeIn(300);
+		$('#createPanel').hide();
+		$('#signupPanel').hide();
+		$('#homePanel').hide();
+		
+		var part = window.location.pathname.substring(0,3);
+		window.history.pushState({},'', part + '/driverlist');						//put it in url so we can f5
+		
+		console.log('getting list of drivers');
+		setTimeout(function(){
+		//	$('#user1wrap').html('');											//reset the panel
+		//	$('#user2wrap').html('');
+		//	ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
+		//	ws.send(JSON.stringify({type: 'chainstats', v: 1}));
+			
+			var drivers = {'Mainak Mandal':'mainakmandal@hotmail.com','Amit Chandra':'amitchandra@in.ibm.com'};	
+			
+			$('#driverlist').load=drivers;
+			
 		}, 1000);
 	}
 	
