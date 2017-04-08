@@ -82,9 +82,9 @@ $(document).on('ready', function() {
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 			
-//		var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
-//		
-//		$('input[name="driverdetailsemail"]').val(driverdetailsmail);
+		var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
+		
+		$('input[name="driverdetailsemail"]').val(driverdetailsmail);
 		showDriverDetailsPanel();
 		
 		return false;
@@ -202,6 +202,9 @@ $(document).on('ready', function() {
 		$('#signupPanel').hide();
 		//$('#home').hide();
 		$('#checkdriverPanel').hide();
+		
+		var part = window.location.pathname.substring(0,3);
+		window.history.pushState({},'', part + '/driverdetails');
 		
 		
 		
