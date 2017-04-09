@@ -27,14 +27,14 @@ module.exports.process_msg = function(ws, data){
 		else if(data.type == 'checkdriverdetails'){
 			console.log('its a checkdriverdetails!');
 			//if(data.name && data.color && data.size && data.user){
-			//chaincode.query.read([checkdriverobj.checkdriveremail], cb_got_driver);
-			chaincode.query.read([data.checkdriveremail], function(e, driver) {
-				if(e != null) console.log('[ws error] did not get driver:', e);
-				else {
-					if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
-					cb(null);
-				}
-			});
+			chaincode.query.read([data.checkdriveremail], cb_got_driver);
+//			chaincode.query.read([data.checkdriveremail], function(e, driver) {
+//				if(e != null) console.log('[ws error] did not get driver:', e);
+//				else {
+//					if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
+//					cb(null);
+//				}
+//			});
 			//}
 		}
 		else if(data.type == 'get'){
@@ -59,7 +59,12 @@ module.exports.process_msg = function(ws, data){
 		}
 	}
 	
-	
+	function cb_got_driver(e, driver) {
+		if(e != null) console.log('[ws error] did not get driver:', e);
+//		else {
+//			if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
+//			cb(null);
+		}
 	
 	
 
