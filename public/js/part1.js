@@ -75,17 +75,17 @@ $(document).on('ready', function() {
 					};
 //		if(obj.user && obj.name && obj.color){
 			//console.log('doing sign up, sending', driverobj);
-//			ws.send(JSON.stringify(driverobj));
+			ws.send(JSON.stringify(checkdriverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
 //			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 			
-		var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
+		//var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
 		
-		$('input[name="driverdetailsemail"]').val(driverdetailsmail);
-		showDriverDetailsPanel();
+		//$('input[name="driverdetailsemail"]').val(driverdetailsmail);
+		//showDriverDetailsPanel();
 		
 		return false;
 	});
@@ -316,6 +316,15 @@ function connect_to_server(){
 			if(msgObj.marble){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
+			}
+			if(msgObj.driver){
+				console.log('rec', msgObj.msg, msgObj);
+				//build_ball(msgObj.marble);
+				$('input[name="driverdetailsemail"]').val(msgObj.driver.email);
+				$('input[name="driverdetailsfirstname"]').val(msgObj.driver.firstname);
+				$('input[name="driverdetailslastname"]').val(msgObj.driver.lastname);
+				$('input[name="driverdetailspassword"]').val(msgObj.driver.password);
+				showDriverDetailsPanel();
 			}
 			else if(msgObj.msg === 'chainstats'){
 				console.log('rec', msgObj.msg, ': ledger blockheight', msgObj.chainstats.height, 'block', msgObj.blockstats.height);
