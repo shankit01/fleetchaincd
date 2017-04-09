@@ -32,7 +32,7 @@ module.exports.process_msg = function(ws, data){
 				if(e != null) console.log('[ws error] did not get driver:', e);
 				else {
 					if(driver) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
-					cb(null);
+					//cb(null);
 				}
 			});
 			//}
