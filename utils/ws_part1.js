@@ -31,8 +31,8 @@ module.exports.process_msg = function(ws, data){
 			chaincode.query.read([data.checkdriveremail], function(e, driver) {
 				if(e != null) console.log('[ws error] did not get driver:', e);
 				else {
-					if(driver) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
-					//cb(null);
+					if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
+					cb(null);
 				}
 			});
 			//}
