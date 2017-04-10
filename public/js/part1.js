@@ -318,12 +318,13 @@ function connect_to_server(){
 				build_ball(msgObj.marble);
 			}
 			if(msgObj.msg === 'driver'){
-				console.log('rec', msgObj.msg, msgObj);
+				console.log('rec', msgObj.msg, msgObj.driver);
+				
 				//build_ball(msgObj.marble);
-				$('input[name="driverdetailsemail"]').val(msgObj.driver.email);
-				$('input[name="driverdetailsfirstname"]').val(msgObj.driver.firstname);
-				$('input[name="driverdetailslastname"]').val(msgObj.driver.lastname);
-				$('input[name="driverdetailspassword"]').val(msgObj.driver.password);
+//				$('input[name="driverdetailsemail"]').val(msgObj.driver.email);
+//				$('input[name="driverdetailsfirstname"]').val(msgObj.driver.firstname);
+//				$('input[name="driverdetailslastname"]').val(msgObj.driver.lastname);
+//				$('input[name="driverdetailspassword"]').val(msgObj.driver.password);
 				showDriverDetailsPanel();
 			}
 			else if(msgObj.msg === 'chainstats'){

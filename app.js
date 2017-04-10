@@ -230,7 +230,7 @@ var options = 	{
 						git_url: 'https://github.com/mamandal/marbles/chaincode',						//GO get http url
 					
 						//hashed cc name from prev deployment, comment me out to always deploy, uncomment me when its already deployed to skip deploying again
-						//deployed_name: '3768e19cc498c1ebe5d7591e505eefd95193be22a19e62b9f3b57768c525240f529dbd33a2d44ca232fd1c214ffb9c3f97caa790acbcd03499602135eaa5abb2'
+						//deployed_name: ''
 					}
 				};
 if(process.env.VCAP_SERVICES){
@@ -251,7 +251,7 @@ ibc.load(options, function (err, cc){														//parse/load chaincode, respo
 		part2.setup(ibc, cc);																//pass the cc obj to part 2 node code
 
 		// ---- To Deploy or Not to Deploy ---- //
-		if(!cc.details.deployed_name || cc.details.deployed_name == ''){					//yes, go deploy
+		if(!cc.details.deployed_name || cc.details.deployed_name === ''){					//yes, go deploy
 			cc.deploy('init', ['99'], {delay_ms: 30000}, function(e){ 						//delay_ms is milliseconds to wait after deploy for conatiner to start, 50sec recommended
 				check_if_deployed(e, 1);
 			});
@@ -323,7 +323,8 @@ function cb_deployed(e){
 				try{
 					var data = JSON.parse(message);
 					part1.process_msg(ws, data);											//pass the websocket msg to part 1 processing
-					part2.process_msg(ws, data);											//pass the websocket msg to part 2 processing
+					//part2.process_msg(ws, data);											//pass the websocket msg to part 2 processing
+					//options.chaincode.deployed_name = '928033e27f34fbd3e6bff70ec7ad310aa1c1104634aebc5a9e0ba1e4009238ba264cebbf9a740d9e8b235d2f9fb7bcf2588e017b3ecfafe058a1834700add49e';
 				}
 				catch(e){
 					console.log('ws message error', e);
