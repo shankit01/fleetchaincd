@@ -61,13 +61,18 @@ module.exports.process_msg = function(ws, data){
 	
 	
 	
-	function cb_got_driver(checkdriverobj, e) {
+	function cb_got_driver(e, checkdriverobj) {
 		if(e != null) console.log('[ws error] did not get driver:', e);
 		else {
-			var jsondriver = JSON.parse(checkdriverobj);
-			//if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
-			//cb(null);
-		}
+				try{
+					var jsondriver = JSON.parse(checkdriverobj);
+					//if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
+					//cb(null);
+				}
+				catch(e){
+					console.log('[ws error] could not parse response', e);
+				}
+			}
 	}
 	
 	
