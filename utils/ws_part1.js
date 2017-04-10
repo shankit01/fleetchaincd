@@ -69,16 +69,29 @@ module.exports.process_msg = function(ws, data){
 			
 					console.log('Driver details received ' + checkdriver);
 					
-					var checkdriver1 = '"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"';
+					//var checkdriver1 = '"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"';
+					
+					
+					var checkdriver1={
+
+					    "firstname":"Srk",
+					    "lastname":"srk",
+					    "email":"srk@hotmail.com",
+					    "password":"password"
+
+					};
 					
 					var jsondriver = JSON.parse(checkdriver1);
+					
+					
+					//var jsondriver = JSON.parse(checkdriver1);
 					
 //					var temp = new Array();
 //					temp = checkdriver.split(",");
 //					
 //					var temp1 = temp[2].split[":"];
 //					
-//					temp1[1]="\"" + temp[1] + "\"";
+//					temp1[1]="\""+ temp[1] + "\"";
 //					
 //					temp[2]=temp1[0] + ":" + temp1[1];
 //					
