@@ -69,7 +69,7 @@ module.exports.process_msg = function(ws, data){
 			
 					console.log('Driver details received ' + checkdriver);
 					
-					var checkdriver1 = {"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"};
+					var checkdriver1 = '"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"';
 					
 					var jsondriver = JSON.parse(checkdriver1);
 					
