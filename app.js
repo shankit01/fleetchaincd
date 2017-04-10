@@ -1,5 +1,5 @@
 'use strict';
-/* global process */
+/* global process  */
 /* global __dirname */
 /*******************************************************************************
  * Copyright (c) 2015 IBM Corp.
