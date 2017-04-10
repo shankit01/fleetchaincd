@@ -66,7 +66,7 @@ module.exports.process_msg = function(ws, data){
 		else {
 				//try{
 					//var jsondriver = JSON.parse(checkdriverobj);
-					console.log(jsondriver);
+					console.log(checkdriver);
 					if(checkdriver!= null) sendStringMsg({msg: 'driver', e: e, driver: checkdriver});
 					
 					console.log('Driver details sent');
