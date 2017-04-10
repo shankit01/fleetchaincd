@@ -61,10 +61,10 @@ module.exports.process_msg = function(ws, data){
 	
 	
 	
-	function cb_got_driver(e, checkdriver) {
+	function cb_got_driver(e, returneddriver) {
 		if(e != null) console.log('[ws error] did not get driver:', e);
 		else {
-			var jsondriver = JSON.parse(checkdriver);
+			var jsondriver = JSON.parse(returneddriver);
 			//if(driver!= null) sendMsg({msg: 'driver', e: e, driver: JSON.parse(driver)});
 			//cb(null);
 		}
