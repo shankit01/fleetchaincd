@@ -320,11 +320,19 @@ function connect_to_server(){
 			if(msgObj.msg == 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
 				
+				var temp = new Array();
+				temp = checkdriver.split(",");
+				temp1=temp[0].split(":");
+				temp2=temp[1].split(":");
+				temp3=temp[2].split(":");
+				temp4=temp[3].split(":");
+				
 				//build_ball(msgObj.marble);
-//				$('input[name="driverdetailsemail"]').val(msgObj.driver.email);
-//				$('input[name="driverdetailsfirstname"]').val(msgObj.driver.firstname);
-//				$('input[name="driverdetailslastname"]').val(msgObj.driver.lastname);
-//				$('input[name="driverdetailspassword"]').val(msgObj.driver.password);
+				
+				$('input[name="driverdetailsfirstname"]').val(temp1[1]);
+				$('input[name="driverdetailslastname"]').val(temp2[1]);
+				$('input[name="driverdetailsemail"]').val(temp3[1]);
+				$('input[name="driverdetailspassword"]').val(temp4[1]);
 				showDriverDetailsPanel();
 			}
 			else if(msgObj.msg === 'chainstats'){
