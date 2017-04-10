@@ -65,9 +65,11 @@ module.exports.process_msg = function(ws, data){
 		if(e != null) console.log('[ws error] did not get driver:', e);
 		else {
 				//try{
-					var jsondriver = JSON.parse("'"+checkdriverobj +"'");
+					//var jsondriver = JSON.parse(checkdriverobj);
 					console.log(jsondriver);
-					//if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: checkdriver});
+					if(checkdriver!= null) sendStringMsg({msg: 'driver', e: e, driver: checkdriver});
+					
+					console.log('Driver details sent');
 					//cb(null);
 				//}
 				//catch(e){
@@ -139,6 +141,19 @@ module.exports.process_msg = function(ws, data){
 		if(ws){
 			try{
 				ws.send(JSON.stringify(json));
+				console.log('[ws info] sent the msg', JSON.stringify(json));
+			}
+			catch(e){
+				console.log('[ws error] could not send msg', e);
+			}
+		}
+	}
+	
+	function sendStringMsg(json){
+		if(ws){
+			try{
+				ws.send(json);
+				console.log('[ws info] sent the msg', json);
 			}
 			catch(e){
 				console.log('[ws error] could not send msg', e);
