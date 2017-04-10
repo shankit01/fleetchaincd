@@ -86,20 +86,20 @@ module.exports.process_msg = function(ws, data){
 					
 					//var jsondriver = JSON.parse(checkdriver1);
 					
-//					var temp = new Array();
-//					temp = checkdriver.split(",");
-//					
-//					var temp1 = temp[2].split[":"];
-//					
-//					temp1[1]="\""+ temp[1] + "\"";
-//					
-//					temp[2]=temp1[0] + ":" + temp1[1];
-//					
-//					checkdriver = temp[0]+","+temp[1]+","+temp[2]+","+temp[3];
-//					
-//					console.log('Driver details updated ' + checkdriver);
+					var temp = new Array();
+					temp = checkdriver.split(",");
 					
-					if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
+					var temp1 = temp[2].split[":"];
+					
+					temp1[1]="\""+ temp[1] + "\"";
+					
+					temp[2]=temp1[0] + ":" + temp1[1];
+					
+					checkdriver = temp[0]+","+temp[1]+","+temp[2]+","+temp[3];
+					
+					console.log('Driver details updated ' + checkdriver);
+					
+	//				if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
 					
 					//console.log('Driver details');
 					//cb(null);
