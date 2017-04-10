@@ -67,7 +67,7 @@ module.exports.process_msg = function(ws, data){
 				try{
 					//var jsondriver = JSON.parse("'"+checkdriverobj);
 					if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: checkdriver});
-					cb(null);
+					//cb(null);
 				}
 				catch(e){
 					console.log('[ws error] could not parse response', e);
