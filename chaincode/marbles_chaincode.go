@@ -387,7 +387,7 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 	}
 	
 	//build the marble json string manually
-	str := `{"firstname": "` + firstname + `", "lastname": "` + lastname + `", "email": ` + email + `, "password": "` + password + `"}`
+	str := `{"firstname": "` + firstname + `", "lastname": "` + lastname + `", "email": "` + email + `", "password": "` + password + `"}`
 	err = stub.PutState(email, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err

@@ -64,49 +64,21 @@ module.exports.process_msg = function(ws, data){
 	function cb_got_driver(e, checkdriver) {
 		if(e != null) console.log('[ws error] did not get driver:', e);
 		else {
-				//try{
-					//var jsondriver = JSON.parse(checkdriverobj);
-			
+				try{
+					
 					console.log('Driver details received ' + checkdriver);
-					
-					//var checkdriver1 = '"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"';
-					
-					
-//					var checkdriver1={
-//
-//					    "firstname":"Srk",
-//					    "lastname":"srk",
-//					    "email":"srk@hotmail.com",
-//					    "password":"password"
-//
-//					};
-//					
-//					var jsondriver = JSON.parse(checkdriver1);
+					var jsondriver = JSON.parse(checkdriver);
+			
 					
 					
-					//var jsondriver = JSON.parse(checkdriver1);
-					
-					var temp = new Array();
-					temp = checkdriver.split(",");
-					
-					var temp1 = temp[2].split[":"];
-					
-					temp1[1]="\""+ temp[1] + "\"";
-					
-					temp[2]=temp1[0] + ":" + temp1[1];
-					
-					checkdriver = temp[0]+","+temp[1]+","+temp[2]+","+temp[3];
-					
-					console.log('Driver details updated ' + checkdriver);
-					
-	//				if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
+					if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
 					
 					//console.log('Driver details');
 					//cb(null);
-				//}
-				//catch(e){
-				//	console.log('[ws error] could not parse response', e);
-				//}
+				}
+				catch(e){
+					console.log('[ws error] could not parse response', e);
+				}
 			}
 	}
 	
@@ -181,15 +153,5 @@ module.exports.process_msg = function(ws, data){
 		}
 	}
 	
-	function sendStringMsg(jsonstring){
-		if(ws){
-			try{
-				ws.send(jsonstring);
-				console.log('[ws info] sent the msg', json);
-			}
-			catch(e){
-				console.log('[ws error] could not send msg', e);
-			}
-		}
-	}
+
 };

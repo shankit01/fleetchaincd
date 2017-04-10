@@ -317,11 +317,9 @@ function connect_to_server(){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
 			}
-			if(msgObj.msg == 'driver'){
+			if(msgObj.msg === 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
-				
-//				var temp = new Array();
-//				temp = checkdriver.split(",");
+
 				
 				//build_ball(msgObj.marble);
 				$('input[name="driverdetailsemail"]').val(msgObj.driver.email);
