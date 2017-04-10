@@ -69,11 +69,19 @@ module.exports.process_msg = function(ws, data){
 					console.log('Driver details received ' + checkdriver);
 					
 					var temp = new Array();
-					temp = checkdriver.split(":");
+					temp = checkdriver.split(",");
 					
-					console.log(temp[0]+ ' ' + temp[1]+ ' ' + temp[2] + ' ' + temp[3] + ' ' + temp[4] + temp[5]+ ' ' + temp[6]+ ' ' + temp[7]);
+					var temp1 = temp[2].split[":"];
 					
-					//if(checkdriver!= null) sendStringMsg({msg: 'driver', e: e, driver: checkdriver});
+					temp1[1]='"' + temp[1] +"'";
+					
+					temp[2]=temp1[0] + ":" + temp1[1];
+					
+					checkdriver = temp[0]+","+temp[1]+","+temp[2]+","+temp[3];
+					
+					console.log('Driver details updated ' + checkdriver);
+					
+				//	if(checkdriver!= null) sendStringMsg({msg: 'driver', e: e, driver: checkdriver});
 					
 					//console.log('Driver details');
 					//cb(null);
@@ -155,10 +163,10 @@ module.exports.process_msg = function(ws, data){
 		}
 	}
 	
-	function sendStringMsg(json){
+	function sendStringMsg(jsonstring){
 		if(ws){
 			try{
-				ws.send(json);
+				ws.send(jsonstring);
 				console.log('[ws info] sent the msg', json);
 			}
 			catch(e){
