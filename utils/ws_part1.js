@@ -73,7 +73,7 @@ module.exports.process_msg = function(ws, data){
 					
 					var temp1 = temp[2].split[":"];
 					
-					temp1[1]='"' + temp[1] +"'";
+					temp1[1]="\"" + temp[1] + "\"";
 					
 					temp[2]=temp1[0] + ":" + temp1[1];
 					
