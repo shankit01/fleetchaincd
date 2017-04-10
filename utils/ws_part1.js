@@ -72,16 +72,16 @@ module.exports.process_msg = function(ws, data){
 					//var checkdriver1 = '"firstname": "Srk", "lastname": "srk", "email": "srk@hotmail.com", "password": "password"';
 					
 					
-					var checkdriver1={
-
-					    "firstname":"Srk",
-					    "lastname":"srk",
-					    "email":"srk@hotmail.com",
-					    "password":"password"
-
-					};
-					
-					var jsondriver = JSON.parse(checkdriver1);
+//					var checkdriver1={
+//
+//					    "firstname":"Srk",
+//					    "lastname":"srk",
+//					    "email":"srk@hotmail.com",
+//					    "password":"password"
+//
+//					};
+//					
+//					var jsondriver = JSON.parse(checkdriver1);
 					
 					
 					//var jsondriver = JSON.parse(checkdriver1);
