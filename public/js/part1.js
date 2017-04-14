@@ -113,6 +113,22 @@ $(document).on('ready', function() {
 	$('#driverdetailsLink').click(function(){
 		showDriverDetailsPanel();
 	});
+	
+	
+	$('#driverlistLink').click(function(){
+		
+		console.log('Retrieve list of drivers');
+		
+		var driverlistobj = 	{
+				type: 'listdriver',
+				v: 1
+			};
+		
+		console.log('listing drivers, sending', driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
+		
+		//showDriverListPanel();
+	});
 
 	
 	//marble color picker
@@ -205,6 +221,24 @@ $(document).on('ready', function() {
 		
 		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},'', part + '/driverdetails');
+		
+		
+		
+		
+		
+	}
+	
+	
+function showDriverListPanel(){
+		
+		$('#driverlistPanel').fadeIn(300);
+		$('#createPanel').hide();
+		$('#signupPanel').hide();
+		//$('#home').hide();
+		$('#checkdriverPanel').hide();
+		
+		var part = window.location.pathname.substring(0,3);
+		window.history.pushState({},'', part + '/driverlist');
 		
 		
 		
@@ -317,6 +351,10 @@ function connect_to_server(){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
 			}
+			if(msgObj.eachdriver){
+				console.log('rec', msgObj.msg, msgObj);
+				build_driver(msgObj.eachdriver);
+			}
 			if(msgObj.msg === 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
 
@@ -384,6 +422,27 @@ function build_ball(data){
 		else{
 			$('#user2wrap').append(html);
 		}
+	}
+	return html;
+}
+
+function build_driver(data){
+	var html = '';
+	var colorClass = '';
+	var size = '12';
+	
+	data.firstname = escapeHtml(data.firstname);
+	data.lastname = escapeHtml(data.lastname);
+	data.email = escapeHtml(data.email);
+	data.password = escapeHtml(data.password);
+	
+	console.log('got a driver: ', data.email);
+	if(!$('#' + data.email).length){								//only populate if it doesn't exists
+		//if(data.size == 16) size = '12';
+		//if(data.color) colorClass = data.color.toLowerCase();
+		
+		html += '<span id="' + data.email + '" style="color:#fff' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		$('#drlistwrap').append(html);
 	}
 	return html;
 }
