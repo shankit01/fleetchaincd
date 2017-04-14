@@ -24,11 +24,11 @@ module.exports.process_msg = function(ws, data){
 				chaincode.invoke.signup_driver([data.firstname, data.lastname, data.email, data.password], cb_invoked);	//create a new marble
 			//}
 		}
-		else if(data.type == 'listdriver'){
-			console.log('its a listdriver!');
-			console.log('get list of drivers');
-			chaincode.query.read(['_driverindex'], cb_got_driverindex);
-		}
+//		else if(data.type == 'listdriver'){
+//			console.log('its a listdriver!');
+//			console.log('get list of drivers');
+//			chaincode.query.read(['_driverindex'], cb_got_driverindex);
+//		}
 		else if(data.type == 'checkdriverdetails'){
 			console.log('its a checkdriverdetails!');
 			//if(data.name && data.color && data.size && data.user){
@@ -90,33 +90,33 @@ module.exports.process_msg = function(ws, data){
 	
 	
 	//got the marble index, lets get each marble
-	function cb_got_driverindex(e, index){
-		if(e != null) console.log('[ws error] did not get driver index:', e);
-		else{
-			try{
-				var json = JSON.parse(index);
-				var keys = Object.keys(json);
-				var concurrency = 1;
-
-				//serialized version
-				async.eachLimit(keys, concurrency, function(key, cb) {
-					console.log('!', json[key]);
-					chaincode.query.read([json[key]], function(e, eachdriver) {
-						if(e != null) console.log('[ws error] did not get driver:', e);
-						else {
-							if(eachdriver) sendMsg({msg: 'driverslist', e: e, eachdriver: JSON.parse(eachdriver)});
-							cb(null);
-						}
-					});
-				}, function() {
-					sendMsg({msg: 'action', e: e, status: 'finished'});
-				});
-			}
-			catch(e){
-				console.log('[ws error] could not parse response', e);
-			}
-		}
-	}
+//	function cb_got_driverindex(e, index){
+//		if(e != null) console.log('[ws error] did not get driver index:', e);
+//		else{
+//			try{
+//				var json = JSON.parse(index);
+//				var keys = Object.keys(json);
+//				var concurrency = 1;
+//
+//				//serialized version
+//				async.eachLimit(keys, concurrency, function(key, cb) {
+//					console.log('!', json[key]);
+//					chaincode.query.read([json[key]], function(e, eachdriver) {
+//						if(e != null) console.log('[ws error] did not get driver:', e);
+//						else {
+//							if(eachdriver) sendMsg({msg: 'driverslist', e: e, eachdriver: JSON.parse(eachdriver)});
+//							cb(null);
+//						}
+//					});
+//				}, function() {
+//					sendMsg({msg: 'action', e: e, status: 'finished'});
+//				});
+//			}
+//			catch(e){
+//				console.log('[ws error] could not parse response', e);
+//			}
+//		}
+//	}
 	
 	
 

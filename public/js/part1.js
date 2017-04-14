@@ -426,23 +426,23 @@ function build_ball(data){
 	return html;
 }
 
-function build_driver(data){
-	var html = '';
-	var colorClass = '';
-	var size = '12';
-	
-	data.firstname = escapeHtml(data.firstname);
-	data.lastname = escapeHtml(data.lastname);
-	data.email = escapeHtml(data.email);
-	data.password = escapeHtml(data.password);
-	
-	console.log('got a driver: ', data.email);
-	if(!$('#' + data.email).length){								//only populate if it doesn't exists
-		//if(data.size == 16) size = '12';
-		//if(data.color) colorClass = data.color.toLowerCase();
-		
-		html += '<span id="' + data.email + '" style="color:#fff' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
-		$('#drlistwrap').append(html);
-	}
-	return html;
-}
+//function build_driver(data){
+//	var html = '';
+//	var colorClass = '';
+//	var size = '12';
+//	
+//	data.firstname = escapeHtml(data.firstname);
+//	data.lastname = escapeHtml(data.lastname);
+//	data.email = escapeHtml(data.email);
+//	data.password = escapeHtml(data.password);
+//	
+//	console.log('got a driver: ', data.email);
+//	if(!$('#' + data.email).length){								//only populate if it doesn't exists
+//		//if(data.size == 16) size = '12';
+//		//if(data.color) colorClass = data.color.toLowerCase();
+//		
+//		html += '<span id="' + data.email + '" style="color:#fff' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+//		$('#drlistwrap').append(html);
+//	}
+//	return html;
+//}
