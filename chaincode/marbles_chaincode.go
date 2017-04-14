@@ -408,6 +408,8 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 	err = stub.PutState(driverIndexStr, jsonAsBytes)						//store name of marble
 
 	fmt.Println("- end signup driver")
+	
+	_ = driversAsBytes
 	return nil, nil
 }
 
