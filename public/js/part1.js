@@ -115,20 +115,20 @@ $(document).on('ready', function() {
 	});
 	
 	
-	$('#driverlistLink').click(function(){
-		
-		console.log('Retrieve list of drivers');
-		
-		var driverlistobj = 	{
-				type: 'listdriver',
-				v: 1
-			};
-		
-		console.log('listing drivers, sending', driverlistobj);
-		ws.send(JSON.stringify(driverlistobj));
-		
-		//showDriverListPanel();
-	});
+//	$('#driverlistLink').click(function(){
+//		
+//		console.log('Retrieve list of drivers');
+//		
+//		var driverlistobj = 	{
+//				type: 'listdriver',
+//				v: 1
+//			};
+//		
+//		console.log('listing drivers, sending', driverlistobj);
+//		ws.send(JSON.stringify(driverlistobj));
+//		
+//		//showDriverListPanel();
+//	});
 
 	
 	//marble color picker
@@ -351,10 +351,10 @@ function connect_to_server(){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
 			}
-			if(msgObj.eachdriver){
-				console.log('rec', msgObj.msg, msgObj);
-				build_driver(msgObj.eachdriver);
-			}
+//			if(msgObj.eachdriver){
+//				console.log('rec', msgObj.msg, msgObj);
+//				build_driver(msgObj.eachdriver);
+//			}
 			if(msgObj.msg === 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
 
