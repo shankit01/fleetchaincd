@@ -351,7 +351,7 @@ function connect_to_server(){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
 			}
-			if(msgObj.msg==='driverslist'){
+			if(msgObj.msg === 'driverslist'){
 				console.log('Received message', msgObj.msg, msgObj);
 				build_driver(msgObj.eachdriver);
 			}
