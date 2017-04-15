@@ -443,7 +443,7 @@ function build_driver(data){
 		
 		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
 		
-		html += ' " First Name=' + data.firstname + ' Last Name= ' + data.lastname + 'Passwordr=' + data.password + '"' ;
+		html += '"First Name=' + data.firstname + ' Last Name= ' + data.lastname + 'Passwordr=' + data.password + '"' ;
 		
 		$('#drlistwrap').append(html);
 	//}
