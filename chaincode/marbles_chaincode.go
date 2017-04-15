@@ -399,7 +399,7 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 		return nil, errors.New("Failed to get driver index")
 	}
 	var driverIndex []string
-	json.Unmarshal(driverAsBytes, &driverIndex)							//un stringify it aka JSON.parse()
+	json.Unmarshal(driversAsBytes, &driverIndex)							//un stringify it aka JSON.parse()
 	
 	//append
 	driverIndex = append(driverIndex, email)									//add marble name to index list
@@ -407,7 +407,7 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 	jsonAsBytes, _ := json.Marshal(driverIndex)
 	err = stub.PutState(driverIndexStr, jsonAsBytes)						//store name of marble
 	
-	_:=driversAsBytes
+	
 
 	fmt.Println("- end signup driver")
 	return nil, nil
