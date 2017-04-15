@@ -131,6 +131,8 @@ $(document).on('ready', function() {
 		console.log('listing drivers, sending', driverlistobj);
 		ws.send(JSON.stringify(driverlistobj));
 		
+		showDriverListPanel();
+		
 		
 	});
 
@@ -364,13 +366,13 @@ function connect_to_server(){
 //				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
 //				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
 //				showDriverDetailsPanel();
-				$('#driverdetailslist').appendChild(msgObj.eachdriver.email);
+				$('#driverdetailslist').append(msgObj.eachdriver.email +"\n");
 				//showDriverListPanel();
 				
 			}
 			if(msgObj.msg === 'driverlistcompleted'){
 
-				showDriverListPanel();
+				//showDriverListPanel();
 				
 				
 			}
