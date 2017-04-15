@@ -4,7 +4,7 @@
 var ws = {};
 var bgcolors = ['whitebg', 'blackbg', 'redbg', 'greenbg', 'bluebg', 'purplebg', 'pinkbg', 'orangebg', 'yellowbg'];
 
-var listofdrivers = [];
+var listofdrivers = [20];
 
 
 
