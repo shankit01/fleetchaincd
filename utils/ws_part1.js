@@ -149,7 +149,7 @@ module.exports.process_msg = function(ws, data){
 				console.log('[ws error] could not parse response', e);
 			}
 			
-			sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
+//			sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
 		}
 	}
 	

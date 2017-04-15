@@ -364,15 +364,15 @@ function connect_to_server(){
 //				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
 //				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
 //				showDriverDetailsPanel();
-				listofdrivers.push(msgObj.eachdriver.email);
+				$('#driverdetailslist').append(msgObj.eachdriver.email);
 				
 			}
-			if(msgObj.msg === 'driverlistcompleted'){
-
-				showDriverListPanel();
-				
-				
-			}
+//			if(msgObj.msg === 'driverlistcompleted'){
+//
+//				showDriverListPanel();
+//				
+//				
+//			}
 			if(msgObj.msg === 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
 
