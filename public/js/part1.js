@@ -366,7 +366,7 @@ function connect_to_server(){
 //				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
 //				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
 //				showDriverDetailsPanel();
-				$('#driverdetailslist').append(msgObj.eachdriver.email +"\n");
+				$('#driverdetailslist').append(msgObj.eachdriver.email +'<br>');
 				//showDriverListPanel();
 				
 			}
