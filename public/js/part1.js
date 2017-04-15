@@ -363,7 +363,7 @@ function connect_to_server(){
 				$('#drlistwrap').append(msgObj.eachdriver.email);
 				
 			}
-			if(msgObj.msg === 'actiondriverlist'){
+			if(msgObj.msg === 'driverlistcompleted'){
 
 				showDriverListPanel();
 				

@@ -109,7 +109,7 @@ module.exports.process_msg = function(ws, data){
 						}
 					});
 				}, function() {
-					sendMsg({msg: 'actiondriverlist', e: e, status: 'completed'});
+					sendMsg({msg: 'action', e: e, status: 'completed'});
 				});
 			}
 			catch(e){
@@ -142,6 +142,8 @@ module.exports.process_msg = function(ws, data){
 				}, function() {
 					sendMsg({msg: 'action', e: e, status: 'finished'});
 				});
+				
+				sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
 			}
 			catch(e){
 				console.log('[ws error] could not parse response', e);
