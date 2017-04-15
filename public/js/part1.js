@@ -4,6 +4,10 @@
 var ws = {};
 var bgcolors = ['whitebg', 'blackbg', 'redbg', 'greenbg', 'bluebg', 'purplebg', 'pinkbg', 'orangebg', 'yellowbg'];
 
+var listofdrivers = [];
+
+
+
 // =================================================================================
 // On Load
 // =================================================================================
@@ -360,7 +364,7 @@ function connect_to_server(){
 //				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
 //				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
 //				showDriverDetailsPanel();
-				$('#drlistwrap').append(msgObj.eachdriver.email);
+				listofdrivers.push(msgObj.eachdriver.email);
 				
 			}
 			if(msgObj.msg === 'driverlistcompleted'){
