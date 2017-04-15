@@ -351,8 +351,8 @@ function connect_to_server(){
 				console.log('rec', msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
 			}
-			if(msgObj.eachdriver){
-				console.log('rec', msgObj.msg, msgObj);
+			if(msgObj.msg==='driverslist'){
+				console.log('Received message', msgObj.msg, msgObj);
 				build_driver(msgObj.eachdriver);
 			}
 			if(msgObj.msg === 'driver'){
@@ -436,13 +436,19 @@ function build_driver(data){
 	data.email = escapeHtml(data.email);
 	data.password = escapeHtml(data.password);
 	
-	console.log('got a driver: ', data.email);
-	if(!$('#' + data.email).length){								//only populate if it doesn't exists
+	console.log('Got a driver: ', data.email);
+	//if(!$('#' + data.email).length){								//only populate if it doesn't exists
 		//if(data.size == 16) size = '12';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<span id="' + data.email + '" style="color:#fff' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		
+		html += ' " First Name=' + data.firstname + ' Last Name= ' + data.lastname + 'Passwordr=' + data.password + '"' ;
+		
 		$('#drlistwrap').append(html);
-	}
+	//}
+	
+	console.log('driverlist message ', html);
+	
 	return html;
 }
