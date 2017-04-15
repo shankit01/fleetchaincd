@@ -109,7 +109,7 @@ module.exports.process_msg = function(ws, data){
 						}
 					});
 				}, function() {
-					sendMsg({msg: 'action', e: e, status: 'finished'});
+					sendMsg({msg: 'actiondriverlist', e: e, status: 'completed'});
 				});
 			}
 			catch(e){

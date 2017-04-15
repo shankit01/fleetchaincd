@@ -355,11 +355,18 @@ function connect_to_server(){
 				//console.log('Received message', msgObj.msg, msgObj);
 				//build_driver(msgObj.eachdriver);
 				
-				$('input[name="driverdetailsemail"]').val(msgObj.eachdriver.email);
-				$('input[name="driverdetailsfirstname"]').val(msgObj.eachdriver.firstname);
-				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
-				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
-				showDriverDetailsPanel();
+//				$('input[name="driverdetailsemail"]').val(msgObj.eachdriver.email);
+//				$('input[name="driverdetailsfirstname"]').val(msgObj.eachdriver.firstname);
+//				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
+//				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
+//				showDriverDetailsPanel();
+				$('#drlistwrap').append(msgObj.eachdriver.email);
+				
+			}
+			if(msgObj.msg === 'actiondriverlist'){
+
+				showDriverListPanel();
+				
 				
 			}
 			if(msgObj.msg === 'driver'){
