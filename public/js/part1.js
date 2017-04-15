@@ -352,8 +352,14 @@ function connect_to_server(){
 				build_ball(msgObj.marble);
 			}
 			if(msgObj.msg === 'driverslist'){
-				console.log('Received message', msgObj.msg, msgObj);
-				build_driver(msgObj.eachdriver);
+				//console.log('Received message', msgObj.msg, msgObj);
+				//build_driver(msgObj.eachdriver);
+				
+				$('input[name="driverdetailsemail"]').val(msgObj.eachdriver.email);
+				$('input[name="driverdetailsfirstname"]').val(msgObj.eachdriver.firstname);
+				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
+				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
+				showDriverDetailsPanel();
 				
 			}
 			if(msgObj.msg === 'driver'){
