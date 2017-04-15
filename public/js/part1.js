@@ -127,7 +127,7 @@ $(document).on('ready', function() {
 		console.log('listing drivers, sending', driverlistobj);
 		ws.send(JSON.stringify(driverlistobj));
 		
-		showDriverListPanel();
+		
 	});
 
 	
@@ -354,6 +354,7 @@ function connect_to_server(){
 			if(msgObj.msg === 'driverslist'){
 				console.log('Received message', msgObj.msg, msgObj);
 				build_driver(msgObj.eachdriver);
+				
 			}
 			if(msgObj.msg === 'driver'){
 				console.log('rec', msgObj.msg, msgObj.driver);
@@ -449,6 +450,7 @@ function build_driver(data){
 	//}
 	
 	console.log('driverlist message ', html);
+	showDriverListPanel();
 	
 	return html;
 }
