@@ -237,6 +237,7 @@ $(document).on('ready', function() {
 	
 function showDriverListPanel(){
 		
+		$('#driverdetailslist').empty();
 		$('#driverlistPanel').fadeIn(300);
 		$('#createPanel').hide();
 		$('#signupPanel').hide();
