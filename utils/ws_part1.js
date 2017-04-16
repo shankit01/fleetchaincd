@@ -152,7 +152,7 @@ module.exports.process_msg = function(ws, data){
 			
 		}
 		
-		sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
+//		sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
 	}
 	
 	function cb_invoked(e, a){
