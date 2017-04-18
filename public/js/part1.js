@@ -18,6 +18,15 @@ $(document).on('ready', function() {
 	// =================================================================================
 	// jQuery UI Events
 	// =================================================================================
+	
+	
+	$("#driverdetailslist > a > span").click(function (e) {
+		var selecteddrivermail = $(this).text();
+	    $('input[name="selecteddriveremail"]').val(selecteddrivermail);
+	});
+	
+	
+	
 	$('#submit').click(function(){
 		console.log('creating marble');
 		var obj = 	{
@@ -95,11 +104,7 @@ $(document).on('ready', function() {
 	});
 	
 	
-	$("#driverdetailslist").on("click", "span", function() {
-	    var selecteddrivermail = $(this).text();
-	    $('input[name="selecteddriveremail"]').val(selecteddrivermail);
-	    
-	});
+	
 	
 	
 	$('#homeLink').click(function(){
@@ -197,6 +202,9 @@ $(document).on('ready', function() {
 			}
 		}
 	});
+	
+	
+	
 	
 	
 	// =================================================================================
@@ -472,7 +480,7 @@ function build_driver(data){
 		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span>' +'<br>'
+		html += '<a href=""><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
 	}
 	
