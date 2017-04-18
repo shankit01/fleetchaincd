@@ -367,8 +367,9 @@ function connect_to_server(){
 //				$('input[name="driverdetailslastname"]').val(msgObj.eachdriver.lastname);
 //				$('input[name="driverdetailspassword"]').val(msgObj.eachdriver.password);
 //				showDriverDetailsPanel();
-				$('#driverdetailslist').append(msgObj.eachdriver.email +'<br>');
-				showDriverListPanel();
+//				$('#driverdetailslist').append(msgObj.eachdriver.email +'<br>');
+//				showDriverListPanel();
+				build_driver(msgObj.eachdriver);
 				
 			}
 //			if(msgObj.msg === 'driverlistcompleted'){
@@ -450,8 +451,8 @@ function build_ball(data){
 
 function build_driver(data){
 	var html = '';
-	var colorClass = '';
-	var size = '12';
+	//var colorClass = '';
+	//var size = '12';
 	
 	data.firstname = escapeHtml(data.firstname);
 	data.lastname = escapeHtml(data.lastname);
@@ -459,18 +460,16 @@ function build_driver(data){
 	data.password = escapeHtml(data.password);
 	
 	console.log('Got a driver: ', data.email);
-	//if(!$('#' + data.email).length){								//only populate if it doesn't exists
-		//if(data.size == 16) size = '12';
+	if(!$('#' + data.email).length){								//only populate if it doesn't exists
+		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		html += '<span id="' + data.email + '" email=" ' + data.email + '">'+' Name '+ data.firstname + ' '+data.lastname + ' Email '+ data.email +  '</span>' +'<br>';
 		
-		html += '"First Name=' + data.firstname + ' Last Name= ' + data.lastname + 'Passwordr=' + data.password + '"' ;
-		
-		$('#drlistwrap').append(html);
-	//}
+	}
 	
 	console.log('driverlist message ', html);
+	$('#driverdetailslist').append(html);
 	showDriverListPanel();
 	
 	return html;
