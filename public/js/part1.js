@@ -492,7 +492,7 @@ function build_driver(data){
 }
 
 function showdriverdetails(email){
-	$('input[name="selecteddriveremail"]').val(email);
+	$('input[name="selecteddriveremail"]').val('Testing...');
 	showDriverListPanel();
 	
 }
