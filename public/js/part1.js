@@ -480,7 +480,7 @@ function build_driver(data){
 		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<a href="#" onclick="showdriverdetails('+data.email+'); return false;"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
+		html += '<a href="javascript:showdriverdetails('+data.email+')"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
 	}
 	
