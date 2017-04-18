@@ -464,11 +464,11 @@ function build_driver(data){
 	console.log('Got a driver: ', data.email);
 	//html += '<span style="color:red" id="'+data.firstname+'">'+ data.email + '</span>' +'<br>'
 	
-	if(!$('#' + data.firstname).length){								//only populate if it doesn't exists
+	if(!$('#' + data.email).length){								//only populate if it doesn't exists
 		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<span style="color:red" id="'+data.firstname+'">'+ data.email + '</span>' +'<br>'
+		html += '<span style="color:red" id="'+data.email+'">'+ data.email + '</span>' +'<br>'
 		
 	}
 	
