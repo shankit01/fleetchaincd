@@ -468,7 +468,7 @@ function build_driver(data){
 		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<span style="color:red" id="'+data.firstname+ '" email="'+data.email+'">'+ data.email + '</span>' +'<br>'
+		html += '<span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span>' +'<br>'
 		
 	}
 	
