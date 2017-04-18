@@ -95,7 +95,11 @@ $(document).on('ready', function() {
 	});
 	
 	
-	
+	$("#driverdetailslist").on("click", "span", function() {
+	    var selecteddrivermail = $(this).text();
+	    $('input[name="selecteddriveremail"]').val(selecteddrivermail);
+	    
+	});
 	
 	
 	$('#homeLink').click(function(){
