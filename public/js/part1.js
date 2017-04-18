@@ -462,15 +462,15 @@ function build_driver(data){
 //	data.password = escapeHtml(data.password);
 	
 	console.log('Got a driver: ', data.email);
-	html += '<span id="'+data.firstname+'">'+ data.email + '</span' +'<br>'
+	//html += '<span style="color:red" id="'+data.firstname+'">'+ data.email + '</span>' +'<br>'
 	
-//	if(!$('#' + data.email).length){								//only populate if it doesn't exists
-//		if(data.size == 16) size = 'fa-3x';
-//		if(data.color) colorClass = data.color.toLowerCase();
-//		
-//		html += '<span id="' + data.email + '">'+'Name '+ data.firstname + ' '+data.lastname + ' Email '+ data.email +  '</span>' +'<br>';
-//		
-//	}
+	if(!$('#' + data.firstname).length){								//only populate if it doesn't exists
+		if(data.size == 16) size = 'fa-3x';
+		if(data.color) colorClass = data.color.toLowerCase();
+		
+		html += '<span style="color:red" id="'+data.firstname+'">'+ data.email + '</span>' +'<br>'
+		
+	}
 	
 	console.log('driverlist message ', html);
 	$('#driverdetailslist').append(html);
