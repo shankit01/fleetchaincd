@@ -480,7 +480,7 @@ function build_driver(data){
 		//if(data.size == 16) size = 'fa-3x';
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
-		html += '<a id="'+data.firstname+'" href="javascript:showdriverdetails('+data.email+');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
+		html += '<a id="'+data.firstname+'" href="javascript:showdriverdetails('''+data.email+''');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
 	}
 	
@@ -492,7 +492,7 @@ function build_driver(data){
 }
 
 function showdriverdetails(email){
-	$('input[name="selecteddriveremail"]').val('Testing...');
+	$('input[name="selecteddriveremail"]').val(email);
 	showDriverListPanel();
 	
 }
