@@ -482,9 +482,9 @@ function build_driver(data){
 		
 		//html += '<a id="'+data.firstname+'" href="javascript:showdriverdetails('''+data.email+''');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
-		//html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails(\''+data.email+'\');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
+		html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails(\''+data.email+'\');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
-		html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails('+data+');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
+		//html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails('+data+');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
 	}
 	
@@ -495,8 +495,8 @@ function build_driver(data){
 	return html;
 }
 
-function showdriverdetails(data){
-	$('input[name="selecteddriveremail"]').val(data.email);
+function showdriverdetails(email){
+	$('input[name="selecteddriveremail"]').val(email);
 	//showDriverListPanel();
 	
 	
