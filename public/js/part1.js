@@ -482,7 +482,7 @@ function build_driver(data){
 		
 		//html += '<a id="'+data.firstname+'" href="javascript:showdriverdetails('''+data.email+''');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
-		html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails('''+data.email+''');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
+		html += '<a id="'+data.lastname +'" href="javascript:showdriverdetails('+data.email+');"><span style="color:red" id="'+data.firstname+ '">'+ data.email + '</span></a>' +'<br>'
 		
 	}
 	
