@@ -264,6 +264,25 @@ function showDriverListPanel(){
 		
 		
 	}
+
+
+function showModifyDriverPanel(){
+	
+	$('#modifydriverPanel').fadeIn(300);
+	$('#driverlistPanel').hide();
+	$('#createPanel').hide();
+	$('#signupPanel').hide();
+	//$('#home').hide();
+	$('#checkdriverPanel').hide();
+	
+	var part = window.location.pathname.substring(0,3);
+	window.history.pushState({},'', part + '/modifydriver');
+	
+	
+	
+	
+	
+}
 	
 	
 	
@@ -495,9 +514,9 @@ function build_driver(data){
 	return html;
 }
 
-function showdriverdetails(email){
-	$('input[name="selecteddriveremail"]').val(email);
-	//showDriverListPanel();
+function showdriverdetails(email, firstname, lastname, password){
+	$('input[name="modifydriveremail"]').val(email);
+	showModifyDriverPanel();
 	
 	
 }
