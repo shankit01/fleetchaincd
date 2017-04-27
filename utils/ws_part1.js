@@ -1,4 +1,4 @@
-// ==================================
+	// ==================================
 // Part 1 - incoming messages, look for type
 // ===================================
 var ibc = {};
@@ -18,10 +18,29 @@ module.exports.process_msg = function(ws, data){
 				chaincode.invoke.init_marble([data.name, data.color, data.size, data.user], cb_invoked);	//create a new marble
 			}
 		}
+		else if(data.type == 'loginuser'){
+			console.log('system admin wspart1' + data.username);
+			chaincode.query.read_sysadmin([data.username]);
+		}
+
 		else if(data.type == 'signup'){
 			console.log('its a signup!');
 			//if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.signup_driver([data.firstname, data.lastname, data.email, data.password], cb_invoked);	//create a new marble
+				chaincode.invoke.signup_driver([data.firstname, data.lastname, data.email, data.mobile, data.password, data.street, data.city, data.state, data.zip], cb_invoked);	//create a new marble
+			//}
+		}
+		
+		else if(data.type == 'updateapprovereject'){
+			console.log('its a approval process!');
+			//if(data.name && data.color && data.size && data.user){
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
+			//}
+		}
+		
+		else if(data.type == "updatedriverdetails"){
+			console.log('its a update driver process!');
+			//if(data.name && data.color && data.size && data.user){
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
 			//}
 		}
 		else if(data.type == 'listdriver'){
@@ -87,8 +106,6 @@ module.exports.process_msg = function(ws, data){
 			}
 	}
 	
-	
-	
 	//got the marble index, lets get each marble
 	function cb_got_driverindex(e, index){
 		if(e != null) console.log('[ws error] did not get driver index:', e);
@@ -117,8 +134,6 @@ module.exports.process_msg = function(ws, data){
 			}
 		}
 	}
-	
-	
 
 	//got the marble index, lets get each marble
 	function cb_got_index(e, index){
@@ -142,17 +157,11 @@ module.exports.process_msg = function(ws, data){
 				}, function() {
 					sendMsg({msg: 'action', e: e, status: 'finished'});
 				});
-				
-				
 			}
 			catch(e){
 				console.log('[ws error] could not parse response', e);
 			}
-			
-			
 		}
-		
-//		sendMsg({msg: 'driverlistcompleted', e: e, status: 'completed'});
 	}
 	
 	function cb_invoked(e, a){
