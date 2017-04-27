@@ -6,9 +6,7 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
-
   http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,8 +47,15 @@ type Driver struct{
 	FirstName string `json:"firstname"`					//the fieldtags are needed to keep case from bouncing around
 	LastName string `json:"lastname"`
 	Email string `json:"email"`
+	Mobile string `json:"mobile"`
 	Password string `json:"password"`
+	Street string `json:"street"`
+	City string `json:"city"`
+	State string `json:"state"`
+	Zip string `json:"zip"`
+	Status string `json:"status"`
 }
+
 
 type Description struct{
 	Color string `json:"color"`
@@ -66,6 +71,11 @@ type AnOpenTrade struct{
 
 type AllTrades struct{
 	OpenTrades []AnOpenTrade `json:"open_trades"`
+}
+
+type Adminlogin struct{
+	Userid string `json:"userid"`					//User login for system Admin
+	Password string `json:"password"`
 }
 
 // ============================================================================================================================
@@ -85,9 +95,24 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	var Aval int
 	var err error
 
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+	
+//Changes for the Hertz Blockchain
+
+   if len(args) != 2 {
+	   return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
+    //Write the User Id "mail Id" arg[0] and password arg[1]
+	userid := args[0]															//argument for UserID
+	password := args[1]  	//argument for password
+	str := `{"userid": "` + userid+ `", "password": "` + password + `"}`
+	
+	err = stub.PutState(userid, []byte(str))								//Put the userid and password in blockchain
+	if err != nil {
+		return nil, err
+	}
+	
+	
+//End of Changes for the Hertz Blockchain}
 
 	// Initialize the chaincode
 	Aval, err = strconv.Atoi(args[0])
@@ -109,11 +134,11 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	}
 	
 	//var empty []string
-	//jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
-	//err = stub.PutState(driverIndexStr, jsonAsBytes)
-	//if err != nil {
-		//return nil, err
-	//}
+	 //jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
+	 err = stub.PutState(driverIndexStr, jsonAsBytes)
+	 if err != nil {
+		return nil, err
+	 }
 	
 	var trades AllTrades
 	jsonAsBytes, _ = json.Marshal(trades)								//clear the open trade struct
@@ -155,7 +180,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "set_user" {										//change owner of a marble
 		res, err := t.set_user(stub, args)
 		cleanTrades(stub)													//lets make sure all open trades are still valid
-		return res, err
+		return res, err	
+	}else if function == "set_status" {										//change owner of a marble
+		res, err := t.set_status(stub, args)
+		cleanTrades(stub)													//lets make sure all open trades are still valid
+		return res, err	
 	} else if function == "open_trade" {									//create a new trade order
 		return t.open_trade(stub, args)
 	} else if function == "perform_trade" {									//forfill an open trade order
@@ -179,6 +208,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	// Handle different functions
 	if function == "read" {													//read a variable
 		return t.read(stub, args)
+	} else if function == "read_sysadmin" {									//Read system admin User id and password
+		return t.read_sysadmin(stub, args)
 	}
 	fmt.Println("query did not find func: " + function)						//error
 
@@ -204,6 +235,35 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	}
 
 	return valAsbytes, nil													//send it onward
+}
+//=============================================================
+// Read - query function to read key/value pair (System Admin read User id and Password)
+//===============================================================================================================================
+func (t *SimpleChaincode) read_sysadmin(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+	var err error
+
+	if len(args) != 1 {
+		return nil, errors.New("Incorrect number of arguments. Expecting name of the key to query")
+	}
+
+	userid := args[0]
+	PassAsbytes, err := stub.GetState(userid)
+	
+	if err != nil {
+		jsonResp := "{\"Error\":\"Failed to get state for " + userid + "\"}"
+		return nil, errors.New(jsonResp)
+	}
+	
+	res := Adminlogin{}
+	json.Unmarshal(PassAsbytes,&res)
+	
+	if res.Userid == userid{
+	   fmt.Println("Userid Password Matched: " +res.Userid + res.Password)
+	  }else {
+	   fmt.Println("Wrong ID Password: " +res.Userid + res.Password)
+	   }
+	
+	return PassAsbytes, nil
 }
 
 // ============================================================================================================================
@@ -277,7 +337,9 @@ func (t *SimpleChaincode) init_marble(stub shim.ChaincodeStubInterface, args []s
 	if len(args) != 4 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 4")
 	}
-
+	
+    fmt.Println("-Amit C code-Init_marble driver")
+	
 	//input sanitation
 	fmt.Println("- start init marble")
 	if len(args[0]) <= 0 {
@@ -347,12 +409,13 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 
 	//   0       1       			2						 3
 	// "Mainak", "Mandal", "mainakmandal@hotmail.com", "password"
-	if len(args) != 4 {
+	if len(args) != 9 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 4")
 	}
 
 	//input sanitation
 	fmt.Println("- start signup driver")
+	fmt.Println("-Amit C code-signup driver")
 	if len(args[0]) <= 0 {
 		return nil, errors.New("1st argument must be a non-empty string")
 	}
@@ -365,10 +428,36 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 	if len(args[3]) <= 0 {
 		return nil, errors.New("4th argument must be a non-empty string")
 	}
+	if len(args[4]) <= 0 {
+		return nil, errors.New("5th argument must be a non-empty string")
+	}
+	if len(args[5]) <= 0 {
+		return nil, errors.New("6th argument must be a non-empty string")
+	}
+	if len(args[6]) <= 0 {
+		return nil, errors.New("7th argument must be a non-empty string")
+	}
+	if len(args[7]) <= 0 {
+		return nil, errors.New("8th argument must be a non-empty string")
+	}
+	if len(args[8]) <= 0 {
+		return nil, errors.New("9th argument must be a non-empty string")
+	}
+	
+	
+	
 	firstname := args[0]
 	lastname := strings.ToLower(args[1])
 	email := strings.ToLower(args[2])
-	password := strings.ToLower(args[3])
+	mobile := strings.ToLower(args[3])
+	password := strings.ToLower(args[4])
+	street := strings.ToLower(args[5])
+	city := strings.ToLower(args[6])
+	state := strings.ToLower(args[7])
+	zip := strings.ToLower(args[8])
+	status := "P" 
+
+	
 	//if err != nil {
 		//return nil, errors.New("3rd argument must be a numeric string")
 	//}
@@ -387,63 +476,99 @@ func (t *SimpleChaincode) signup_driver(stub shim.ChaincodeStubInterface, args [
 	}
 	
 	//build the marble json string manually
-	str := `{"firstname": "` + firstname + `", "lastname": "` + lastname + `", "email": "` + email + `", "password": "` + password + `"}`
+	str := `{"firstname": "` + firstname + `", "lastname": "` + lastname + `", "email": "` + email + `",  "mobile": "` + mobile + `", "password": "` + password + `","street": "` + street + `","city": "` + city + `","state": "` + state + `","zip": "` + zip + `","status": "` + status + `"}`
 	err = stub.PutState(email, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err
 	}
 		
 	//get the driver index
-	//driversAsBytes, err := stub.GetState(driverIndexStr)
-	//if err != nil {
-		//return nil, errors.New("Failed to get driver index")
-	//}
-	//var driverIndex []string
-	//json.Unmarshal(driverAsBytes, &driverIndex)							//un stringify it aka JSON.parse()
+	driversAsBytes, err := stub.GetState(driverIndexStr)
+	if err != nil {
+		return nil, errors.New("Failed to get driver index")
+	}
+	var driverIndex []string
+	json.Unmarshal(driversAsBytes, &driverIndex)							//un stringify it aka JSON.parse()
 	
 	//append
-	//driverIndex = append(driverndex, email)									//add marble name to index list
-	//fmt.Println("! driver index: ", driverIndex)
-	//jsonAsBytes, _ := json.Marshal(driverIndex)
-	//err = stub.PutState(driverIndexStr, jsonAsBytes)						//store name of marble
+	 driverIndex = append(driverIndex, email)									//add marble name to index list
+	 fmt.Println("! driver index: ", driverIndex)
+	 jsonAsBytes, _ := json.Marshal(driverIndex)
+	 err = stub.PutState(driverIndexStr, jsonAsBytes)						//store name of marble
 
 	fmt.Println("- end signup driver")
 	return nil, nil
 }
-
-
 // ============================================================================================================================
 // Set User Permission on Marble
 // ============================================================================================================================
-func (t *SimpleChaincode) set_user(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	var err error
-	
+  func (t *SimpleChaincode) set_user(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+  	var err error
 	//   0       1
 	// "name", "bob"
 	if len(args) < 2 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 2")
 	}
 	
-	fmt.Println("- start set user")
-	fmt.Println(args[0] + " - " + args[1])
-	marbleAsBytes, err := stub.GetState(args[0])
-	if err != nil {
-		return nil, errors.New("Failed to get thing")
-	}
-	res := Marble{}
-	json.Unmarshal(marbleAsBytes, &res)										//un stringify it aka JSON.parse()
-	res.User = args[1]														//change the user
+	 fmt.Println("- start set user")
+	 fmt.Println(args[0] + " - " + args[1])
+	 marbleAsBytes, err := stub.GetState(args[0])
+ 	if err != nil {
+	 	return nil, errors.New("Failed to get thing")
+	 }
+	 res := Marble{}
+	 json.Unmarshal(marbleAsBytes, &res)										//un stringify it aka JSON.parse()
+	 res.User = args[1]														//change the user
 	
-	jsonAsBytes, _ := json.Marshal(res)
-	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the marble with id as key
+ 	jsonAsBytes, _ := json.Marshal(res)
+ 	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the marble with id as key
 	if err != nil {
 		return nil, err
 	}
 	
-	fmt.Println("- end set user")
+ 	fmt.Println("- end set user")
 	return nil, nil
-}
-
+  }
+  
+ // ============================================================================================================================
+// Set User Permission on Marble
+// ============================================================================================================================
+  func (t *SimpleChaincode) set_status(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+  	var err error
+	//   0       1
+	// "email", "status"
+	if len(args) < 10 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 2")
+	}
+	
+	 fmt.Println("- start set user")
+	 fmt.Println(args[0] + " - " + args[1])
+	 
+	driverAsBytes, err := stub.GetState(args[0])
+	if err != nil {
+		return nil, errors.New("Failed to get driver name")
+	}
+	res := Driver{}
+	json.Unmarshal(driverAsBytes, &res) 
+	 res.FirstName = args[1]	 //change the user
+	 res.LastName = args[2]
+	 res.Mobile = args[3]
+	 res.Password = args[4]
+	 res.Street = args[5]
+	 res.City = args[6]
+	 res.State = args[7]
+	 res.Zip = args[8]
+	 res.Status = args[9]
+	 
+ 	jsonAsBytes, _ := json.Marshal(res)
+ 	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the user status with email-id as key
+	if err != nil {
+		return nil, err
+	}
+	
+ 	fmt.Println("- end set user")
+	return nil, nil
+  } 
 // ============================================================================================================================
 // Open Trade - create an open trade for a marble you want with marbles you have 
 // ============================================================================================================================

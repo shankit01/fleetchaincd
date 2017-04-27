@@ -224,13 +224,11 @@ var options = 	{
 								}
 					},
 					chaincode:{
-						/*zip_url: 'https://github.com/mamandal/marbles/archive/fleetchain-chaincode-v1.zip',
+						zip_url: 'https://github.com/mamandal/marbles/archive/fleetchain-chaincode-v1.zip',
 						unzip_dir: 'marbles-fleetchain-chaincode-v1/chaincode/',													//subdirectroy name of chaincode after unzipped
 						//git_url: 'http://gopkg.in/ibm-blockchain/marbles.v2/chaincode',						//GO get http url
-						git_url: 'https://github.com/mamandal/marbles/chaincode',	*/					//GO get http url
-						zip_url: 'https://github.com/knagware9/marbles/archive/master.zip',
-						unzip_dir: 'marbles-master/chaincode',													//subdirectroy name of chaincode after unzipped
-						git_url: 'https://github.com/knagware9/marbles/chaincode',
+						git_url: 'https://github.com/mamandal/marbles/chaincode',						//GO get http url
+					
 						//hashed cc name from prev deployment, comment me out to always deploy, uncomment me when its already deployed to skip deploying again
 						//deployed_name: ''
 					}
