@@ -1,4 +1,4 @@
-/*globals showDriverDetailsPanel showDriverAprroveRejectPanel msgObj*/
+/*globals showDriverDetailsPanel showDriverAprroveRejectPanel*/
 /* global new_block,formatDate, randStr, bag, $, clear_blocks, document, WebSocket, escapeHtml, window , testing*/
 
 //part1.js
@@ -47,6 +47,7 @@ $(document).on("ready", function() {
 					};
 				console.log("rec",obj.username, obj.password);
 		if(obj.username === "99" && obj.password === "nagware"){
+			$("input[name=\"userrole\"]").val("admin");
 			$("input[name=\"userrole\"]").val("Uber Admin");
 			$("input[name=\"username\"]").val("");
 			$("input[name=\"password\"]").val("");
@@ -67,7 +68,10 @@ $(document).on("ready", function() {
 		function onMessage(msg){
 		try{
 			var msgObj = JSON.parse(msg.data);
-			
+			if(msgObj.marble){
+				console.log("rec", msgObj.msg, msgObj);
+				build_ball(msgObj.marble);
+			}
 			if(msgObj.msg === "driverslist"){
 				console.log("Status", msgObj.eachdriver.status);
 				if(msgObj.eachdriver.status == "P"){
@@ -77,18 +81,23 @@ $(document).on("ready", function() {
 			}
 			
 		} 
+
+			//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+				//showDriverApprovalListPanel();		
+	
 		catch(e){
 			console.log("ERROR", e);
-			}
+}
 
-	}
+}
 
 		$("#driverdetailsPanel").hide();
 		showDriverPendingListPanel();
 		$("#loginuserPanel").hide();
-}
+		
+		}
 	else {
-	 	console.log("checking up driver logging-1");
+	 console.log("checking up driver");
 		var checkdriverobj = {
 					type: "checkdriverdetails",
 						checkdriveremail: $("input[name=\"username\"]").val().replace(" ", ""),
@@ -97,42 +106,11 @@ $(document).on("ready", function() {
 //		if(obj.user && obj.name && obj.color){
 			console.log("doing sign up, sending", checkdriverobj);
 			ws.send(JSON.stringify(checkdriverobj));
-			
-			function onMessage(msg){
-		try{
-			var msgObj = JSON.parse(msg.data);
-			
-			if(msgObj.msg === "driver"){
-				console.log("rec", msgObj.msg, msgObj.driver);
-				//build_ball(msgObj.marble);
-				$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
-				$("input[name=\"driverdetailspassword\"]").val(msgObj.driver.password);
-				//showDriverDetailsPanel();
-			}
-		}
-
-	catch(e){
-			console.log("ERROR", e);
-			
-			}
-		}
-	
-
-			console.log("checking up driver logging");
-			console.log("obj.username", obj.username);
-	 		console.log("msgObj.driver.email" ,msgObj.driver.email);
-	 		console.log("obj.password", obj.password);
-	 		console.log("msgObj.password" ,msgObj.driver.password);
-			if (obj.username === msgObj.driver.email && obj.password === msgObj.driver.password) {
-				$("input[name=\"userrole\"]").val("Driver Logged In");
-				showDriverDetailsPanel();
-				$("#loginuserPanel").hide();
-				
-			}
-			else{
-				console.log("NOt a driver");
-	    		}
-	} 
+			$("input[name=\"userrole\"]").val("driver");
+			$("input[name=\"userrole\"]").val("Driver Logged In");
+			showDriverDetailsPanel();
+			$("#loginuserPanel").hide();
+	}
 
 	 return false;
 	});
@@ -469,7 +447,7 @@ $("#updatedriver").click(function(){
 
 
 	$("#pendingdriverlistLink").click(function(){
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
@@ -497,7 +475,7 @@ $("#updatedriver").click(function(){
 	});
 	
 	$("#approvaldriverlistLink").click(function(){
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
@@ -527,7 +505,7 @@ $("#updatedriver").click(function(){
 	
 	$("#rejectdriverlistLink").click(function(){
 		
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 		}
