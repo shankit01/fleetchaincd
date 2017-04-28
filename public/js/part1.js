@@ -149,9 +149,11 @@ $(document).on("ready", function() {
 
 		return false;
 	});
+	
+	
 	$("#signup").click(function(){
 		console.log("Signing up driver");
-		var driverobj = 	{
+		var driverobj = {
 						type: "signup",
 						firstname: $("input[name=\"firstname\"]").val().replace(" ", ""),
 						lastname: $("input[name=\"lastname\"]").val().replace(" ", ""),
