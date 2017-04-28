@@ -20,10 +20,14 @@ block content
 	#contentPanel
 		
 		#blockdate(title="date of last block") loading...
-		input(type="text" name="userrole" placeholder="User Role" readonly="readonly")
 		
-		// --------------- Login Panel
-		include ./panel_login_user.jade
+		
+		// --------------- Home Panel
+		include ./panel_home.jade
+		
+		
+		// --------------- Create Panel
+		include ./panel_create.jade
 		
 		// --------------- Create Panel
 		include ./panel_driver_signup.jade
@@ -34,30 +38,13 @@ block content
 		// --------------- Create Panel
 		include ./panel_driver_details.jade
 		
-		// --------------- Create Panel
-		include ./panel_pending_driver_list.jade
+		include ./panel_driver_approval_list.jade
 		
-		// --------------- Create Panel
-		include ./panel_approval_driver_list.jade
-		
-		// --------------- Create Panel
-		include ./panel_reject_driver_list.jade
-		
-		
-		// --------------- Create Panel
 		include ./panel_driver_approve_reject.jade
 		
-		// --------------- Create Panel
 		include ./panel_approve_reject_success.jade
 		
-		include ./panel_noaccess.jade
-		
-		include ./panel_driver_approve_show.jade
-		
-		include ./panel_driver_reject_show.jade
 		
 		
-		
-		
-//block footer
-//	include ./template/blockchain.jade
+block footer
+	include ./template/blockchain.jade

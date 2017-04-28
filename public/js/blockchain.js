@@ -10,6 +10,7 @@ $(document).on('ready', function() {
 
 	var clicked = false;
 	$(document).on('click', '.block', function(event){
+		
 		clicked = !clicked;
 		show_details(event, Number($(this).html()));
 	});
@@ -51,6 +52,9 @@ function new_block(newblck){									//rec a new block
 				build_block(i);
 			}
 		}
+		var html = '<table style="width:100%">';
+	    html+= '<tr><th>Firstname</th><th>Lastname</th><th>Email</th></tr>';
+	    $('#detailslist').html(html).fadeIn();
 		blocks[Number(newblck.id)] = newblck;
 		build_block(newblck.id);								//build block
 	}
@@ -98,7 +102,7 @@ function formatType(i){											//spell out deploy or invoke
 
 function formatPayload(str, ccid){								//create a sllliiiggghhhtttlllllyyy better payload name from decoded payload
 	var func = ['init', 'delete', 'write', 'init_marble', 'set_user', 'open_trade', 'perform_trade', 'remove_trade'];
-	str =  str.substring(str.indexOf(ccid) + ccid.length + 5);
+	str =  str.substring(str.indexOf(ccid) + ccid.length + 4);
 	for(var i in func){
 		if(str.indexOf(func[i]) >= 0){
 			return func[i] + ': ' + str.substr(func[i].length);

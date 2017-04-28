@@ -224,11 +224,21 @@ var options = 	{
 								}
 					},
 					chaincode:{
-						zip_url: 'https://github.com/mamandal/marbles/archive/master.zip',
-						unzip_dir: 'marbles-master/chaincode',													//subdirectroy name of chaincode after unzipped
+						/*zip_url: 'https://github.com/mamandal/marbles/archive/fleetchain-chaincode-v1.zip',
+						unzip_dir: 'marbles-fleetchain-chaincode-v1/chaincode/',													//subdirectroy name of chaincode after unzipped
 						//git_url: 'http://gopkg.in/ibm-blockchain/marbles.v2/chaincode',						//GO get http url
-						git_url: 'https://github.com/mamandal/marbles/chaincode',						//GO get http url
-					
+						git_url: 'https://github.com/mamandal/marbles/chaincode',	*/					//GO get http url
+						/*zip_url: 'https://github.com/AmitChandra1982/marbles/archive/master.zip',
+						unzip_dir: 'marbles-master/chaincode',													//subdirectroy name of chaincode after unzipped
+						git_url: 'https://github.com/Amitchandra1982/marbles/chaincode',*/
+						
+						/*zip_url: 'https://github.com/dkuralka/fleetchaincd/archive/master.zip',
+						unzip_dir: 'fleetchaincd-master/chaincode',													//subdirectroy name of chaincode after unzipped
+						git_url: 'https://github.com/dkuralka/fleetchaincd/chaincode',*/
+						
+						zip_url: 'https://github.com/knagware9/marbles/archive/master.zip',
+						unzip_dir: 'marbles-master/chaincode',													//subdirectroy name of chaincode after unzipped
+						git_url: 'https://github.com/knagware9/marbles/chaincode',
 						//hashed cc name from prev deployment, comment me out to always deploy, uncomment me when its already deployed to skip deploying again
 						//deployed_name: ''
 					}
@@ -251,9 +261,8 @@ ibc.load(options, function (err, cc){														//parse/load chaincode, respo
 		part2.setup(ibc, cc);																//pass the cc obj to part 2 node code
 
 		// ---- To Deploy or Not to Deploy ---- //
-		if(!cc.details.deployed_name || cc.details.deployed_name === ''){
-			console.log('Chaincode deployment issue');
-			cc.deploy('init', ['99','nagware'], {delay_ms: 30000}, function(e){ 						//delay_ms is milliseconds to wait after deploy for conatiner to start, 50sec recommended
+		if(!cc.details.deployed_name || cc.details.deployed_name === ''){					//yes, go deploy
+			cc.deploy('init', ['99'], {delay_ms: 30000}, function(e){ 						//delay_ms is milliseconds to wait after deploy for conatiner to start, 50sec recommended
 				check_if_deployed(e, 1);
 			});
 		}

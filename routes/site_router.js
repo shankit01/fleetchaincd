@@ -30,14 +30,14 @@ router.route('/').get(function(req, res){
 });
 
 router.route('/login').get(function(req, res){
-	res.render('panel_login_user', {title: 'Please Sign In To Uber.com'});
+	res.render('login.jade', {title: 'Please Sign In To Marbles'});
 });
 
 // ============================================================================================================================
 // Part 1
 // ============================================================================================================================
 router.route('/p1').get(function(req, res){
-	res.render('part1', {title: 'Uber.com', bag: build_bag()});
+	res.render('part1', {title: 'Marbles Part 1', bag: build_bag()});
 });
 router.route('/p1/:page?').get(function(req, res){
 	res.render('part1', {title: 'Marbles Part 1', bag: build_bag()});
