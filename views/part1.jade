@@ -20,8 +20,7 @@ block content
 	#contentPanel
 		
 		#blockdate(title="date of last block") loading...
-		
-		input(type="text" name="userrole" placeholder="User Role")
+		input(type="text" name="userrole" placeholder="User Role" readonly="readonly")
 		
 		// --------------- Login Panel
 		include ./panel_login_user.jade
@@ -52,6 +51,10 @@ block content
 		include ./panel_approve_reject_success.jade
 		
 		include ./panel_noaccess.jade
+		
+		include ./panel_driver_approve_show.jade
+		
+		include ./panel_driver_reject_show.jade
 		
 		
 		
