@@ -1,4 +1,4 @@
-// ==================================
+	// ==================================
 // Part 1 - incoming messages, look for type
 // ===================================
 var ibc = {};
@@ -18,11 +18,35 @@ module.exports.process_msg = function(ws, data){
 				chaincode.invoke.init_marble([data.name, data.color, data.size, data.user], cb_invoked);	//create a new marble
 			}
 		}
+		else if(data.type == 'loginuser'){
+			console.log('system admin wspart1' + data.username);
+			chaincode.query.read_sysadmin([data.username]);
+		}
+
 		else if(data.type == 'signup'){
 			console.log('its a signup!');
 			//if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.signup_driver([data.firstname, data.lastname, data.email,data.mobile,data.password,data.street,data.city,data.state,data.zip], cb_invoked);	//create a new marble
+				chaincode.invoke.signup_driver([data.firstname, data.lastname, data.email, data.mobile, data.password, data.street, data.city, data.state, data.zip], cb_invoked);	//create a new marble
 			//}
+		}
+		
+		else if(data.type == 'updateapprovereject'){
+			console.log('its a approval process!');
+			//if(data.name && data.color && data.size && data.user){
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
+			//}
+		}
+		
+		else if(data.type == "updatedriverdetails"){
+			console.log('its a update driver process!');
+			//if(data.name && data.color && data.size && data.user){
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
+			//}
+		}
+		else if(data.type == 'listdriver'){
+			console.log('its a listdriver!');
+			console.log('get list of drivers');
+			chaincode.query.read(['_driverindex'], cb_got_driverindex);
 		}
 		else if(data.type == 'checkdriverdetails'){
 			console.log('its a checkdriverdetails!');
@@ -36,11 +60,6 @@ module.exports.process_msg = function(ws, data){
 //				}
 //			});
 			//}
-		}
-		else if(data.type == 'listdriver'){
-			console.log('its a listdriver!');
-			console.log('get list of drivers');
-			chaincode.query.read(['_driverindex'], cb_got_driverindex);
 		}
 		else if(data.type == 'get'){
 			console.log('get marbles msg');
@@ -62,10 +81,29 @@ module.exports.process_msg = function(ws, data){
 			console.log('chainstats msg');
 			ibc.chain_stats(cb_chainstats);
 		}
-		else if(data.type == 'updatedriver'){
-			console.log('chainstats msg');
-			chaincode.invoke.set_status([data.email,data.firstname, data.lastname, data.mobile,data.password,data.street,data.city,data.state,data.zip,data.status], cb_update);
-		}
+	}
+	
+	
+	
+	function cb_got_driver(e, checkdriver) {
+		if(e != null) console.log('[ws error] did not get driver:', e);
+		else {
+				try{
+					
+					console.log('Driver details received ' + checkdriver);
+					var jsondriver = JSON.parse(checkdriver);
+			
+					
+					
+					if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
+					
+					//console.log('Driver details');
+					//cb(null);
+				}
+				catch(e){
+					console.log('[ws error] could not parse response', e);
+				}
+			}
 	}
 	
 	//got the marble index, lets get each marble
@@ -96,29 +134,6 @@ module.exports.process_msg = function(ws, data){
 			}
 		}
 	}
-	
-	function cb_got_driver(e, checkdriver) {
-		if(e != null) console.log('[ws error] did not get driver:', e);
-		else {
-				try{
-					
-					console.log('Driver details received ' + checkdriver);
-					var jsondriver = JSON.parse(checkdriver);
-			
-					
-					
-					if(checkdriver!= null) sendMsg({msg: 'driver', e: e, driver: jsondriver});
-					
-					//console.log('Driver details');
-					//cb(null);
-				}
-				catch(e){
-					console.log('[ws error] could not parse response', e);
-				}
-			}
-	}
-	
-	
 
 	//got the marble index, lets get each marble
 	function cb_got_index(e, index){
@@ -152,11 +167,6 @@ module.exports.process_msg = function(ws, data){
 	function cb_invoked(e, a){
 		console.log('response: ', e, a);
 	}
-	
-	function cb_update(e, a){
-		console.log('response: ', e, a);
-	}
-	
 	
 	//call back for getting the blockchain stats, lets get the block stats now
 	function cb_chainstats(e, chain_stats){

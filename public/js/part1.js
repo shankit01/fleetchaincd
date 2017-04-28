@@ -36,6 +36,78 @@ $(document).on("ready", function() {
 		return false;
 	});
 
+	$('#loginuser').click(function(){
+		console.log('Logging In');
+		var obj = 	{
+						type: 'loginuser',
+						username: $('input[name="username"]').val(),
+						password: $('input[name="password"]').val(),
+						v: 1
+					};
+	if(obj.username == 99)	
+	{
+		$("input[name=\"userrole\"]").val("admin");
+	}
+	else{
+		$("input[name=\"userrole\"]").val("driver");
+	}
+	if(obj.username && obj.password){
+			console.log('validating systemadmin', obj);
+			ws.send(JSON.stringify(obj));
+//			showHomePanel();
+//			$('.colorValue').html('Color');											//reset
+//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
+//			$('.createball').css('border', '2px dashed #fff');						//reset
+	}
+
+		var driverlistobj = 	{
+				type: "listdriver",
+				v: 1
+			};
+		
+		console.log("listing drivers, sending", driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
+		function onMessage(msg){
+		try{
+			var msgObj = JSON.parse(msg.data);
+			if(msgObj.marble){
+				console.log("rec", msgObj.msg, msgObj);
+				build_ball(msgObj.marble);
+			}
+			if(msgObj.msg === "driverslist"){
+				console.log("Status", msgObj.eachdriver.status);
+				if(msgObj.eachdriver.status == "P"){
+				build_driver(msgObj.eachdriver);
+			}
+
+				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+				//showDriverApprovalListPanel();		
+			}
+			else if(msgObj.msg === "chainstats"){
+				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
+				if(msgObj.blockstats && msgObj.blockstats.transactions) {
+                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
+                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
+                    var temp =  {
+                        id: msgObj.blockstats.height,
+                        blockstats: msgObj.blockstats
+                    };
+                    new_block(temp);								//send to blockchain.js
+				}
+			}
+			else console.log("rec", msgObj.msg, msgObj);
+		}
+		catch(e){
+			console.log("ERROR", e);
+		}
+	}
+
+		showDriverPendingListPanel();
+		$("#loginuserPanel").hide();
+		
+		return false;
+	});
+
 	
 	$("#signup").click(function(){
 		console.log("Signing up driver");
@@ -44,7 +116,7 @@ $(document).on("ready", function() {
 						firstname: $("input[name=\"firstname\"]").val().replace(" ", ""),
 						lastname: $("input[name=\"lastname\"]").val().replace(" ", ""),
 						email: $("input[name=\"email\"]").val().replace(" ", ""),
-						mobile: $("input[name=\"mobilenumber\"]").val().replace(" ", ""),
+						mobile: $("input[name=\"mobile\"]").val().replace(' ', ''),
 						password: $("input[name=\"password\"]").val().replace(" ", ""),
 						street: $("input[name=\"street\"]").val().replace(" ", ""),
 						city: $("input[name=\"city\"]").val().replace(" ", ""),
@@ -61,32 +133,213 @@ $(document).on("ready", function() {
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 		
-		showHomePanel();
+//		showHomePanel();
+		showDriverPendingListPanel();
 		
 		return false;
 	});
 	
 	
 	$("#approvedriver").click(function(){
+			
 		console.log("approving driver");
 		var driverobj = 	{
-						type: "updatedriver",
+						type: "updateapprovereject",
 						firstname: $("input[name=\"driverdetailsfirstname\"]").val().replace(" ", ""),
 						lastname: $("input[name=\"driverdetailslastname\"]").val().replace(" ", ""),
 						email: $("input[name=\"driverdetailsemail\"]").val().replace(" ", ""),
-						mobile: $("input[name=\"driverdetailsmobilenumber\"]").val().replace(" ", ""),
+						mobile: $("input[name=\"driverdetailsmobile\"]").val().replace(" ", ""),
 						password: $("input[name=\"driverdetailspassword\"]").val().replace(" ", ""),
 						street: $("input[name=\"driverdetailsstreet\"]").val().replace(" ", ""),
 						city: $("input[name=\"driverdetailscity\"]").val().replace(" ", ""),
 						state: $("input[name=\"driverdetailsstate\"]").val().replace(" ", ""),
 						zip: $("input[name=\"driverdetailszip\"]").val().replace(" ", ""),
-						status:"A",
+						status: "A",
+						v: 1
+					};
+					
+					console.log("approverejectdriver"+driverobj);
+//		if(obj.user && obj.name && obj.color){
+			console.log("approve, sending", driverobj);
+			ws.send(JSON.stringify(driverobj));
+//			showHomePanel();
+//			$('.colorValue').html('Color');											//reset
+//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
+//			$('.createball').css('border', '2px dashed #fff');						//reset
+//		}
+
+           var driverlistobj = 	{
+				type: "listdriver",
+				v: 1
+			};
+		
+		console.log("listing drivers, sending", driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
+		function onMessage(msg){
+		try{
+			var msgObj = JSON.parse(msg.data);
+			if(msgObj.marble){
+				console.log("rec", msgObj.msg, msgObj);
+				build_ball(msgObj.marble);
+			}
+			if(msgObj.msg === "driverslist"){
+				console.log("Status", msgObj.eachdriver.status);
+				if(msgObj.eachdriver.status == "A"){
+				build_drivera(msgObj.eachdriver);
+			}
+
+				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+				//showDriverApprovalListPanel();		
+			}
+			else if(msgObj.msg === "chainstats"){
+				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
+				if(msgObj.blockstats && msgObj.blockstats.transactions) {
+                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
+                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
+                    var temp =  {
+                        id: msgObj.blockstats.height,
+                        blockstats: msgObj.blockstats
+                    };
+                    new_block(temp);								//send to blockchain.js
+				}
+			}
+			else console.log("rec", msgObj.msg, msgObj);
+		}
+		catch(e){
+			console.log("ERROR", e);
+		}
+	}
+
+		showDriverApprovalListPanel();
+		$("#driverapproverejectPanel").hide();
+		
+		return false;
+	});
+
+          //$("#driverapproverejectsuccessPanel").fadeIn(300);
+		 // $("#driverapproverejectPanel").hide();
+			//$("#createPanel").hide();
+			//$("#signupPanel").hide();
+		//	$("#driverapprovallistPanel").hide();
+		//	$("#checkdriverPanel").hide();
+		
+		//var part = window.location.pathname.substring(0,3);
+		//window.history.pushState({},"", part + "/driverdetails");
+				
+		//return false;
+	//});
+	
+$("#rejectdriver").click(function(){
+		console.log("Rejecting driver");
+		var driverobj = 	{
+						type: "updateapprovereject",
+						firstname: $("input[name=\"driverdetailsfirstname\"]").val().replace(" ", ""),
+						lastname: $("input[name=\"driverdetailslastname\"]").val().replace(" ", ""),
+						email: $("input[name=\"driverdetailsemail\"]").val().replace(" ", ""),
+						mobile: $("input[name=\"driverdetailsmobile\"]").val().replace(" ", ""),
+						password: $("input[name=\"driverdetailspassword\"]").val().replace(" ", ""),
+						street: $("input[name=\"driverdetailsstreet\"]").val().replace(" ", ""),
+						city: $("input[name=\"driverdetailscity\"]").val().replace(" ", ""),
+						state: $("input[name=\"driverdetailsstate\"]").val().replace(" ", ""),
+						zip: $("input[name=\"driverdetailszip\"]").val().replace(" ", ""),
+						status:"R",
 						v: 1
 					};
 					
 					console.log("approverejectdriver"+ driverobj.status);
 //		if(obj.user && obj.name && obj.color){
-			/*console.log("doing sign up, sending", driverobj);*/
+			console.log("Rejecting driver, sending", driverobj);
+			 ws.send(JSON.stringify(driverobj));
+
+
+//			showHomePanel();
+//			$('.colorValue').html('Color');											//reset
+//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
+//			$('.createball').css('border', '2px dashed #fff');						//reset
+//		}
+
+var driverlistobj = 	{
+				type: "listdriver",
+				v: 1
+			};
+		
+		console.log("listing drivers, sending", driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
+		function onMessage(msg){
+		try{
+			var msgObj = JSON.parse(msg.data);
+			if(msgObj.marble){
+				console.log("rec", msgObj.msg, msgObj);
+				build_ball(msgObj.marble);
+			}
+			if(msgObj.msg === "driverslist"){
+				console.log("Status", msgObj.eachdriver.status);
+				if(msgObj.eachdriver.status == "R"){
+				build_driverr(msgObj.eachdriver);
+			}
+
+				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+				//showDriverApprovalListPanel();		
+			}
+			else if(msgObj.msg === "chainstats"){
+				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
+				if(msgObj.blockstats && msgObj.blockstats.transactions) {
+                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
+                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
+                    var temp =  {
+                        id: msgObj.blockstats.height,
+                        blockstats: msgObj.blockstats
+                    };
+                    new_block(temp);								//send to blockchain.js
+				}
+			}
+			else console.log("rec", msgObj.msg, msgObj);
+		}
+		catch(e){
+			console.log("ERROR", e);
+		}
+	}
+
+		showDriverRejectListPanel();
+	    $("#driverapproverejectPanel").hide();
+		
+		return false;
+	});
+
+		//$("#driverapproverejectsuccessPanel").fadeIn(300);
+		//$("#driverapproverejectPanel").hide();
+		//	$("#createPanel").hide();
+	//		$("#signupPanel").hide();
+		//	$("#driverapprovallistPanel").hide();
+		//	$("#checkdriverPanel").hide();
+		
+	//	var part = window.location.pathname.substring(0,3);
+		//window.history.pushState({},"", part + "/driverdetails");
+		
+		
+		//return false;
+	//});
+	
+$("#updatedriver").click(function(){
+		console.log("Updating driver");
+		var driverobj = 	{
+						type: "updatedriverdetails",
+						firstname: $("input[name=\"driverdetailsfirstname\"]").val().replace(" ", ""),
+						lastname: $("input[name=\"driverdetailslastname\"]").val().replace(" ", ""),
+						email: $("input[name=\"driverdetailsemail\"]").val().replace(" ", ""),
+						mobile: $("input[name=\"driverdetailsmobile\"]").val().replace(" ", ""),
+						password: $("input[name=\"driverdetailspassword\"]").val().replace(" ", ""),
+						street: $("input[name=\"driverdetailsstreet\"]").val().replace(" ", ""),
+						city: $("input[name=\"driverdetailscity\"]").val().replace(" ", ""),
+						state: $("input[name=\"driverdetailsstate\"]").val().replace(" ", ""),
+						zip: $("input[name=\"driverdetailszip\"]").val().replace(" ", ""),
+						status:"P",
+						v: 1
+					};
+					
+					console.log("updatedriver"+ driverobj.status);
+//		if(obj.user && obj.name && obj.color){
+			console.log("Update, sending", driverobj);
 			ws.send(JSON.stringify(driverobj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
@@ -99,47 +352,8 @@ $(document).on("ready", function() {
 			$("#signupPanel").hide();
 			$("#driverapprovallistPanel").hide();
 			$("#checkdriverPanel").hide();
-		
-		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/driverdetails");
-		
-		
-		return false;
-	});
-	
-	
-	$("#rejectdriver").click(function(){
-		console.log("approving driver");
-		var driverobj = 	{
-						type: "updatedriver",
-						firstname: $("input[name=\"driverdetailsfirstname\"]").val().replace(" ", ""),
-						lastname: $("input[name=\"driverdetailslastname\"]").val().replace(" ", ""),
-						email: $("input[name=\"driverdetailsemail\"]").val().replace(" ", ""),
-						mobile: $("input[name=\"driverdetailsmobilenumber\"]").val().replace(" ", ""),
-						password: $("input[name=\"driverdetailspassword\"]").val().replace(" ", ""),
-						street: $("input[name=\"driverdetailsstreet\"]").val().replace(" ", ""),
-						city: $("input[name=\"driverdetailscity\"]").val().replace(" ", ""),
-						state: $("input[name=\"driverdetailsstate\"]").val().replace(" ", ""),
-						zip: $("input[name=\"driverdetailszip\"]").val().replace(" ", ""),
-						status:"R",
-						v: 1
-					};
-					
-					console.log("approverejectdriver"+ driverobj.status);
-//		if(obj.user && obj.name && obj.color){
-			/*console.log("doing sign up, sending", driverobj);
-			ws.send(JSON.stringify(driverobj))*/;
-//			showHomePanel();
-//			$('.colorValue').html('Color');											//reset
-//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
-//			$('.createball').css('border', '2px dashed #fff');						//reset
-//		}
-		$("#driverapproverejectsuccessPanel").fadeIn(300);
-		$("#driverapproverejectPanel").hide();
-			$("#createPanel").hide();
-			$("#signupPanel").hide();
-			$("#driverapprovallistPanel").hide();
-			$("#checkdriverPanel").hide();
+			$("#driverdetailsPanel").hide();
+			
 		
 		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},"", part + "/driverdetails");
@@ -180,8 +394,19 @@ $(document).on("ready", function() {
 		showHomePanel();
 	});
 	
+	$('#loginuserLink').click(function(){
+		$("#loginwrap").empty();
+		showLoginUserPanel();
+	});
+	
 	$("#signupLink").click(function(){
+		$("#signupwrap").empty();
+		if($("input[name=\"userrole\"]").val() == "driver"){
 		showSignupPanel();
+		}
+		else{
+		$("#noaccessPanel").fadeIn(300);	
+		}
 	});
 
 	$("#createLink").click(function(){
@@ -189,27 +414,14 @@ $(document).on("ready", function() {
 	});
 	
 	$("#checkdriverLink").click(function(){
-		$("input[name=\"checkdriveremail\"]").val("");
 		showcheckdriverPanel();
 	});
 	
 	$("#driverdetailsLink").click(function(){
 		showDriverDetailsPanel();
 	});
-	
-	$("#driveractiontakenlink").click(function(){
-		$("#driverActionTakenPanel").fadeIn(300);
-		$("#driverdetailsPanel").hide();
-		$("#createPanel").hide();
-		$("#signupPanel").hide();
-		//$('#home').hide();
-		$("#checkdriverPanel").hide();
-		
-		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/driverdetails");
-	});
 
-	$("#driverapprovallistLink").click(function(){
+	$("#pendingdriverlistLink").click(function(){
 		//ws.send(JSON.stringify({type: 'chainstats', v:1}));
 		console.log("Retrieve list of drivers");
 		$("#drlistwrap").empty();
@@ -221,8 +433,39 @@ $(document).on("ready", function() {
 		
 		console.log("listing drivers, sending", driverlistobj);
 		ws.send(JSON.stringify(driverlistobj));
+		showDriverPendingListPanel();
+	});
+	
+	$("#approvaldriverlistLink").click(function(){
+		//ws.send(JSON.stringify({type: 'chainstats', v:1}));
+		console.log("Retrieve list of drivers");
+		$("#drlistwrapa").empty();
+		
+		var driverlistobj = 	{
+				type: "listdriver",
+				v: 1
+			};
+		
+		console.log("listing drivers, sending", driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
 		showDriverApprovalListPanel();
 	});
+	
+	$("#rejectdriverlistLink").click(function(){
+		//ws.send(JSON.stringify({type: 'chainstats', v:1}));
+		console.log("Retrieve list of drivers");
+		$("#drlistwrapr").empty();
+		
+		var driverlistobj = 	{
+				type: "listdriver",
+				v: 1
+			};
+		
+		console.log("listing drivers, sending", driverlistobj);
+		ws.send(JSON.stringify(driverlistobj));
+		showDriverRejectListPanel();
+	});
+	
 	
 	//marble color picker
 	$(document).on("click", ".colorInput", function(){
@@ -304,8 +547,19 @@ $(document).on("ready", function() {
 	}
 	
 	
-	function showDriverDetailsPanel(){
+	function showLoginUserPanel(){
+		$('#loginuserPanel').fadeIn(300);
+		$('#createPanel').hide();
+		$('#signupPanel').hide();
+		//$('#createPanel').hide();
 		
+		var part = window.location.pathname.substring(0,4);
+		window.history.pushState({},'', part + '/loginuser');	
+		
+	}
+	
+	function showDriverDetailsPanel(){
+		$("#drvdwrap").empty();
 		$("#driverdetailsPanel").fadeIn(300);
 		$("#createPanel").hide();
 		$("#signupPanel").hide();
@@ -316,31 +570,52 @@ $(document).on("ready", function() {
 		window.history.pushState({},"", part + "/driverdetails");	
 	}
 	
-	function showDriverAprroveRejectPanel(){
+ function showDriverPendingListPanel(){
 		
-		$("#driverapproverejectPanel").fadeIn(300);
+		$("#driverpendinglistPanel").fadeIn(300);
 		$("#createPanel").hide();
 		$("#signupPanel").hide();
 		//$('#home').hide();
 		$("#checkdriverPanel").hide();
+		$("#driverrejectlistPanel").hide();
+		$("#driverapprovallistPanel").hide();
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/driverdetails");	
+		window.history.pushState({},"", part + "/pendingdriverdetails");	
+
 	}
 	
-	
- function showDriverApprovalListPanel(){
+	function showDriverApprovalListPanel(){
 		
 		$("#driverapprovallistPanel").fadeIn(300);
-		$("#createPanel").hide();
-		$("#signupPanel").hide();
-		//$('#home').hide();
-		$("#checkdriverPanel").hide();
+			$("#createPanel").hide();
+			$("#signupPanel").hide();
+			//$("#driverapprovallistPanel").hide();
+			$("#checkdriverPanel").hide();
+			$("#driverpendinglistPanel").hide();
+			$("#driverrejectlistPanel").hide();
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/dirverapprovallist");	
+		//window.history.pushState({},"", part + "/driverdetails");	
+		window.history.pushState({},"", part + "/approvedriverdetails");	
 	}
-	
+
+ function showDriverRejectListPanel(){
+ 	
+			$("#driverrejectlistPanel").fadeIn(300);
+			$("#createPanel").hide();
+			$("#signupPanel").hide();
+		//	$("#driverapprovallistPanel").hide();
+			$("#checkdriverPanel").hide();
+			$("#driverpendinglistPanel").hide();
+			$("#driverapprovallistPanel").hide();
+		
+		var part = window.location.pathname.substring(0,3);
+		window.history.pushState({},"", part + "/rejectdriverdetails");
+		
+		//window.history.pushState({},"", part + "/dirverapprovallist");	
+	}
+
 	
 	function showcheckdriverPanel(){
 		$("#checkdriverPanel").fadeIn(300);
@@ -368,18 +643,26 @@ $(document).on("ready", function() {
 	function showSignupPanel(){
 		$("#signupPanel").fadeIn(300);
 		$("#createPanel").hide();
+		$("#loginuserPanel").hide();
 		//$('#createPanel').hide();
 		
 		var part = window.location.pathname.substring(0,4);
-		window.history.pushState({},"", part + "/signup");						//put it in url so we can f5
+		window.history.pushState({},"", part + "/signup");						//put it in url so we can f5		
+	}
+	
+	//show Signup panel page
+	function showSucessPanel(){
+		$("#driverapproverejectsuccessPanel").fade(300);
+	
+		$("#driverapproverejectPanel").hide();
+			$("#createPanel").hide();
+			$("#signupPanel").hide();
+			$("#driverapprovallistPanel").hide();
+			$("#checkdriverPanel").hide();
 		
-//		console.log('getting new balls');
-//		setTimeout(function(){
-//			$('#user1wrap').html('');											//reset the panel
-//			$('#user2wrap').html('');
-//			ws.send(JSON.stringify({type: 'get', v: 1}));						//need to wait a bit
-//			ws.send(JSON.stringify({type: 'chainstats', v: 1}));
-//		}, 1000);
+		var part = window.location.pathname.substring(0,3);
+		window.history.pushState({},"", part + "/driverdetails");
+		
 	}
 	
 	//transfer selected ball to user
@@ -453,20 +736,29 @@ function connect_to_server(){
 				$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
 				$("input[name=\"driverdetailsfirstname\"]").val(msgObj.driver.firstname);
 				$("input[name=\"driverdetailslastname\"]").val(msgObj.driver.lastname);
+				$("input[name=\"driverdetailsmobile\"]").val(msgObj.driver.mobile);
 				$("input[name=\"driverdetailspassword\"]").val(msgObj.driver.password);
 				$("input[name=\"driverdetailsstreet\"]").val(msgObj.driver.street);
 				$("input[name=\"driverdetailscity\"]").val(msgObj.driver.city);
 				$("input[name=\"driverdetailsstate\"]").val(msgObj.driver.state);
 				$("input[name=\"driverdetailszip\"]").val(msgObj.driver.zip);
-				$("input[name=\"driverdetailsmobilenumber\"]").val(msgObj.driver.mobile);
 				$("input[name=\"driverdetailsstatus\"]").val(msgObj.driver.status);
 				//showDriverDetailsPanel();
 			}
 			if(msgObj.msg === "driverslist"){
-				//console.log('Received message', msgObj.msg, msgObj);
+				console.log("Status", msgObj.eachdriver.status);
 				if(msgObj.eachdriver.status == "P"){
 				build_driver(msgObj.eachdriver);
-			}			
+			}
+
+				if(msgObj.eachdriver.status == "A"){
+				build_drivera(msgObj.eachdriver);
+			}
+
+			if(msgObj.eachdriver.status == "R"){
+				build_driverr(msgObj.eachdriver);
+			}
+
 				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
 				//showDriverApprovalListPanel();		
 			}
@@ -546,6 +838,7 @@ function build_driver(data){
 		//if(data.color) colorClass = data.color.toLowerCase();
 		
 		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		
 		html += '<tr><th>' + data.firstname + '</th><th>' + data.lastname + '</th><th><a href="javascript:showdriverdetails(\''+data.email+'\');">' + data.email + '</a></th></tr>' ;
 		
 		$('#drlistwrap').append(html);
@@ -570,9 +863,68 @@ function showdriverdetails(email){
 			$("#driverapproverejectPanel").fadeIn(300);
 			$("#createPanel").hide();
 			$("#signupPanel").hide();
-			$("#driverapprovallistPanel").hide();
+			$("#driverpendinglistPanel").hide();
 			$("#checkdriverPanel").hide();
+			$("#driverrejectlistPanel").hide();
+			$("#driverapprovallistPanel").hide();
+			
 		
 		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},"", part + "/driverdetails");	
+}
+
+function build_drivera(data){
+	var html = '';
+	var colorClass = '';
+	var size = '12';
+	
+	data.firstname = escapeHtml(data.firstname);
+	data.lastname = escapeHtml(data.lastname);
+	data.email = escapeHtml(data.email);
+	data.password = escapeHtml(data.password);
+	
+	console.log('Got a driver approved: ', data.email);
+	//if(!$('#' + data.email).length){								//only populate if it doesn't exists
+		//if(data.size == 16) size = '12';
+		//if(data.color) colorClass = data.color.toLowerCase();
+		
+		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		
+			html += '<tr><th>' + data.firstname + '</th><th>' + data.lastname + '</th><th><a href="javascript:showdriverdetails(\''+data.email+'\');">' + data.email + '</a></th></tr>' ;
+		
+		$('#drlistwrapa').append(html);
+	//}
+	
+	console.log('driverlist message approved ', html);
+//	showDriverListPanel();
+
+			
+	return html;
+}
+
+function build_driverr(data){
+	var html = '';
+	var colorClass = '';
+	var size = '12';
+	
+	data.firstname = escapeHtml(data.firstname);
+	data.lastname = escapeHtml(data.lastname);
+	data.email = escapeHtml(data.email);
+	data.password = escapeHtml(data.password);
+	
+	console.log('Got a rejected driver: ', data.email);
+	//if(!$('#' + data.email).length){								//only populate if it doesn't exists
+		//if(data.size == 16) size = '12';
+		//if(data.color) colorClass = data.color.toLowerCase();
+		
+		//html += '<span id="' + data.email + '" style="color:#ffff00' + ' First Name="' + data.firstname + ' Last Name="' + data.lastname+ '" Passwordr="' + data.password + '"></span>';
+		
+			html += '<tr><th>' + data.firstname + '</th><th>' + data.lastname + '</th><th><a href="javascript:showdriverdetails(\''+data.email+'\');">' + data.email + '</a></th></tr>' ;
+		$('#drlistwrapr').append(html);
+	//}
+	
+	console.log('driverlist message rejected ', html);
+//	showDriverListPanel();
+	
+	return html;
 }
