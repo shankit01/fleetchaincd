@@ -99,7 +99,20 @@ module.exports.process_msg = function(ws, data){
 			
 					
 					
-					if(checkdriver!= null) sendMsg({msg: 'checklogin',authentication:'success', e: e, driver: jsondriver});
+					if(jsondriver!= null) && (jsondriver.email===data.loginusername) 
+					{
+					
+						if(jsondriver.password===data.loginpassword)
+						
+						{
+							sendMsg({msg: 'checklogin',authentication:'success', e: e, driver: jsondriver});
+						}
+						else
+						{
+							sendMsg({msg: 'checklogin', e: e, authentication:'failure'});
+							
+						}
+					}
 					
 					//console.log('Driver details');
 					//cb(null);
