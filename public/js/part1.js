@@ -37,102 +37,101 @@ $(document).on("ready", function() {
 	});
 
 	$("#loginuser").click(function(){
-		console.log("Logging In");
-	
+		console.log('Logging In');
 		var obj = 	{
-						type: "loginuser",
-						username: $("input[name=\"username\"]").val(),
-						password: $("input[name=\"password\"]").val(),
+						type: 'loginuser',
+						loginusername: $('input[name="loginusername"]').val(),
+						loginpassword: $('input[name="loginpassword"]').val(),
 						v: 1
 					};
-				console.log("rec",obj.username, obj.password);
-		if(obj.username === "99" && obj.password === "nagware"){
-			$("input[name=\"userrole\"]").val("Uber Admin");
-			$("input[name=\"username\"]").val("");
-			$("input[name=\"password\"]").val("");
-			console.log("validating systemadmin", obj);
-//			ws.send(JSON.stringify(obj));
+	if(obj.username && obj.password){
+			console.log('sending login details for validation', obj);
+			ws.send(JSON.stringify(obj));
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
 //			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
 //			$('.createball').css('border', '2px dashed #fff');						//reset
-
-		var driverlistobj = 	{
-				type: "listdriver",
-				v: 1
-			};
-		
-		console.log("listing drivers, sending", driverlistobj);
-		ws.send(JSON.stringify(driverlistobj));
-		function onMessage(msg){
-		try{
-			var msgObj = JSON.parse(msg.data);
-			
-			if(msgObj.msg === "driverslist"){
-				console.log("Status", msgObj.eachdriver.status);
-				if(msgObj.eachdriver.status == "P"){
-				build_driver(msgObj.eachdriver);
-			}
-
-			}
-			
-		} 
-		catch(e){
-			console.log("ERROR", e);
-			}
-
-	}
-
-		$("#driverdetailsPanel").hide();
-		showDriverPendingListPanel();
-		$("#loginuserPanel").hide();
-}
-	else {
-	 	console.log("checking up driver logging-1");
-		var checkdriverobj = {
-					type: "checkdriverdetails",
-						checkdriveremail: $("input[name=\"username\"]").val().replace(" ", ""),
-						v: 1
-					};
-//		if(obj.user && obj.name && obj.color){
-			console.log("doing sign up, sending", checkdriverobj);
-			ws.send(JSON.stringify(checkdriverobj));
-			
-			function onMessage(msg){
-		try{
-			var msgObj = JSON.parse(msg.data);
-			
-			if(msgObj.msg === "driver"){
-				console.log("rec", msgObj.msg, msgObj.driver);
-				//build_ball(msgObj.marble);
-				$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
-				$("input[name=\"driverdetailspassword\"]").val(msgObj.driver.password);
-				//showDriverDetailsPanel();
-			}
 		}
-
-	catch(e){
-			console.log("ERROR", e);
-			
-			}
-		}
+//		$("#signupPanel").fadeIn(300);
+//		$("#loginuserPanel").hide();
 	
-
-			console.log("checking up driver logging");
-			console.log("obj.username", obj.username);
-	 		console.log("msgObj.driver.email" ,msgObj.driver.email);
-	 		console.log("obj.password", obj.password);
-	 		console.log("msgObj.password" ,msgObj.driver.password);
-			if (obj.username === msgObj.driver.email && obj.password === msgObj.driver.password) {
-				$("input[name=\"userrole\"]").val("Driver Logged In");
-				showDriverDetailsPanel();
-				$("#loginuserPanel").hide();
-				
-			}
-			else{
-				console.log("NOt a driver");
-	    		}
-	} 
+	
+//		var driverlistobj = 	{
+//				type: "listdriver",
+//				v: 1
+//			};
+//		
+//		console.log("listing drivers, sending", driverlistobj);
+//		ws.send(JSON.stringify(driverlistobj));
+//		function onMessage(msg){
+//		try{
+//			var msgObj = JSON.parse(msg.data);
+//			
+//			if(msgObj.msg === "driverslist"){
+//				console.log("Status", msgObj.eachdriver.status);
+//				if(msgObj.eachdriver.status == "P"){
+//				build_driver(msgObj.eachdriver);
+//			}
+//
+//			}
+//			
+//		} 
+//		catch(e){
+//			console.log("ERROR", e);
+//			}
+//
+//	}
+//
+//		$("#driverdetailsPanel").hide();
+//		showDriverPendingListPanel();
+//		$("#loginuserPanel").hide();
+//}
+//	else {
+//	 	console.log("checking up driver logging-1");
+//		var checkdriverobj = {
+//					type: "checkdriverdetails",
+//						checkdriveremail: $("input[name=\"username\"]").val().replace(" ", ""),
+//						v: 1
+//					};
+////		if(obj.user && obj.name && obj.color){
+//			console.log("doing sign up, sending", checkdriverobj);
+//			ws.send(JSON.stringify(checkdriverobj));
+//			
+//			function onMessage(msg){
+//		try{
+//			var msgObj = JSON.parse(msg.data);
+//			
+//			if(msgObj.msg === "driver"){
+//				console.log("rec", msgObj.msg, msgObj.driver);
+//				//build_ball(msgObj.marble);
+//				$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
+//				$("input[name=\"driverdetailspassword\"]").val(msgObj.driver.password);
+//				//showDriverDetailsPanel();
+//			}
+//		}
+//
+//	catch(e){
+//			console.log("ERROR", e);
+//			
+//			}
+//		}
+//	
+//
+//			console.log("checking up driver logging");
+//			console.log("obj.username", obj.username);
+//	 		console.log("msgObj.driver.email" ,msgObj.driver.email);
+//	 		console.log("obj.password", obj.password);
+//	 		console.log("msgObj.password" ,msgObj.driver.password);
+//			if (obj.username === msgObj.driver.email && obj.password === msgObj.driver.password) {
+//				$("input[name=\"userrole\"]").val("Driver Logged In");
+//				showDriverDetailsPanel();
+//				$("#loginuserPanel").hide();
+//				
+//			}
+//			else{
+//				console.log("NOt a driver");
+//	    		}
+//	} 
 
 	 return false;
 	});
@@ -818,6 +817,35 @@ function connect_to_server(){
 			if(msgObj.marble){
 				console.log("rec", msgObj.msg, msgObj);
 				build_ball(msgObj.marble);
+			}
+			if(msgObj.msg === "checklogin"){
+				console.log("Logged user details", msgObj.msg, msgObj.driver);
+
+				if(msgObj.authentication === "failure")
+					{
+					
+					$("input[name=\"userrole\"]").val("LoginFailure");
+					}
+				
+				if(msgObj.authentication === "success")
+				{
+					if(msgObj.driver.email==="admin@fleetchain.com")
+						{
+							
+							$("input[name=\"userrole\"]").val("Uber Admin");
+						
+						}
+					else
+						{
+							$("input[name=\"userrole\"]").val("Driver");
+						
+						}
+				
+				
+				}
+				
+				
+				//showDriverDetailsPanel();
 			}
 			if(msgObj.msg === "driver"){
 				console.log("rec", msgObj.msg, msgObj.driver);

@@ -19,8 +19,8 @@ module.exports.process_msg = function(ws, data){
 			}
 		}
 		else if(data.type == 'loginuser'){
-			console.log('system admin wspart1' + data.username);
-			chaincode.query.read_sysadmin([data.username]);
+			console.log('Inside ws part1, going to call chaincode to validate login' + data.loginusername);
+			chaincode.query.read([loginusername],cb_got_login)
 		}
 
 		else if(data.type == 'signup'){
@@ -82,6 +82,34 @@ module.exports.process_msg = function(ws, data){
 			ibc.chain_stats(cb_chainstats);
 		}
 	}
+	
+	
+	
+	function cb_got_login(e, loginuserfromcc) {
+		if(e != null) {
+			console.log('[ws error] did not get driver:', e);
+			sendMsg({msg: 'checklogin', e: e, authentication:'failure'});
+			
+		}
+		else {
+				try{
+					
+					console.log('Driver details received ' + loginuserfromcc);
+					var jsondriver = JSON.parse(loginuserfromcc);
+			
+					
+					
+					if(checkdriver!= null) sendMsg({msg: 'checklogin',authentication:'success', e: e, driver: jsondriver});
+					
+					//console.log('Driver details');
+					//cb(null);
+				}
+				catch(e){
+					console.log('[ws error] could not parse response', e);
+				}
+			}
+	}
+	
 	
 	
 	
