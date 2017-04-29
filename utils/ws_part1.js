@@ -99,7 +99,7 @@ module.exports.process_msg = function(ws, data){
 			
 					
 					
-					if(jsondriver!= null) && (jsondriver.email===data.loginusername) 
+					if((jsondriver!= null) && (jsondriver.email===data.loginusername)) 
 					{
 					
 						if(jsondriver.password===data.loginpassword)
