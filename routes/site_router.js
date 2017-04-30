@@ -9,8 +9,10 @@
  *   David Huffman - Initial implementation
  *******************************************************************************/
 var express = require('express');
+var session = require('express-session');
 var router = express.Router();
 var setup = require('../setup.js');
+var ssn;
 
 //anything in here gets passed to JADE template engine
 function build_bag(){
@@ -27,10 +29,11 @@ function build_bag(){
 // ============================================================================================================================
 router.route('/').get(function(req, res){
 	res.redirect('/p1');
+	ssn=req.session;
 });
 
 router.route('/login').get(function(req, res){
-	res.render('login.jade', {title: 'Please Sign In To Marbles'});
+	res.render('login.jade', {title: 'Please Sign In To Fleetchain'});
 });
 
 // ============================================================================================================================
