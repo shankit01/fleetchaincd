@@ -40,8 +40,8 @@ $(document).on("ready", function() {
 		console.log('Inside login user click');
 		var obj = 	{
 						type: 'loginuser',
-						loginusername: $("input[name=\"username\"]").val().replace(" ", ""),
-						loginpassword: $("input[name=\"password\"]").val().replace(" ", ""),
+						loginusername: $("input[name=\"loginusername\"]").val().replace(" ", ""),
+						loginpassword: $("input[name=\"loginpassword\"]").val().replace(" ", ""),
 						v: 1
 					};
 	if(obj.username && obj.password){
@@ -471,7 +471,7 @@ $("#updatedriver").click(function(){
 
 
 	$("#pendingdriverlistLink").click(function(){
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "Driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
@@ -499,7 +499,7 @@ $("#updatedriver").click(function(){
 	});
 	
 	$("#approvaldriverlistLink").click(function(){
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "Driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
@@ -529,7 +529,7 @@ $("#updatedriver").click(function(){
 	
 	$("#rejectdriverlistLink").click(function(){
 		
-		if($("input[name=\"userrole\"]").val() === "Driver Logged In"){
+		if($("input[name=\"userrole\"]").val() === "Driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 		}
