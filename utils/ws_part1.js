@@ -19,8 +19,8 @@ module.exports.process_msg = function(ws, data){
 			}
 		}
 		else if(data.type == 'loginuser'){
-			console.log('Inside ws part1, going to call chaincode to validate login' + data.loginusername);
-			chaincode.query.read([loginusername],cb_got_login)
+			console.log('Inside loginuser at ws part1, going to call chaincode to validate login' + data.loginusername);
+			chaincode.query.read([data.loginusername],cb_got_login)
 		}
 
 		else if(data.type == 'signup'){

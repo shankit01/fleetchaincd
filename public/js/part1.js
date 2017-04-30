@@ -33,20 +33,21 @@ $(document).on("ready", function() {
 			for(var i in bgcolors) $(".createball").removeClass(bgcolors[i]);		//reset
 			$(".createball").css("border", "2px dashed #fff");						//reset
 		}
-		return false;
-	});
+			return false;
+		});
 
 	$("#loginuser").click(function(){
-		console.log('Logging In');
+		console.log('Inside login user click');
 		var obj = 	{
 						type: 'loginuser',
-						loginusername: $('input[name="loginusername"]').val(),
-						loginpassword: $('input[name="loginpassword"]').val(),
+						loginusername: $("input[name=\"username\"]").val().replace(" ", ""),
+						loginpassword: $("input[name=\"password\"]").val().replace(" ", ""),
 						v: 1
 					};
 	if(obj.username && obj.password){
 			console.log('sending login details for validation', obj);
 			ws.send(JSON.stringify(obj));
+			console.log('login details sent to ws for validation', obj);
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
 //			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
@@ -819,7 +820,7 @@ function connect_to_server(){
 				build_ball(msgObj.marble);
 			}
 			if(msgObj.msg === "checklogin"){
-				console.log("Logged user details", msgObj.msg, msgObj.driver);
+				console.log("Logged in user details", msgObj.msg, msgObj.driver);
 
 				if(msgObj.authentication === "failure")
 					{
