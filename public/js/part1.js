@@ -44,7 +44,7 @@ $(document).on("ready", function() {
 						loginpassword: $("input[name=\"loginpassword\"]").val().replace(" ", ""),
 						v: 1
 					};
-	if(obj.username && obj.password){
+	if(obj.loginusername && obj.loginpassword){
 			console.log('sending login details for validation', obj);
 			ws.send(JSON.stringify(obj));
 			console.log('login details sent to ws for validation', obj);
