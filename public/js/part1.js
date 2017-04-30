@@ -824,22 +824,22 @@ function connect_to_server(){
 
 				if(msgObj.authentication === "failure")
 					{
-					ssn.loginresult="LoginFailure";
-					$("input[name=\"userrole\"]").val(ssn.loginresult);
+						bag.session.loginresult="LoginFailure";
+						$("input[name=\"userrole\"]").val(bag.session.loginresult);
 					}
 				
 				if(msgObj.authentication === "success")
 				{
 					if(msgObj.driver.email==="admin@fleetchain.com")
 						{
-						ssn.loginresult="Uber Admin";
-						$("input[name=\"userrole\"]").val(ssn.loginresult);
+							bag.session.loginresult="Uber Admin";
+							$("input[name=\"userrole\"]").val(bag.session.loginresult);
 						
 						}
 					else
 						{
-							ssn.loginresult="Driver";
-							$("input[name=\"userrole\"]").val(ssn.loginresult);
+							bag.session.loginresult="Driver";
+							$("input[name=\"userrole\"]").val(bag.session.loginresult);
 						
 						}
 				
