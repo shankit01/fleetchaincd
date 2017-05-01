@@ -689,14 +689,15 @@ $("#updatedriver").click(function(){
 			$("#noaccessPanel").fadeIn(300);
 	
 		}
-		else if(bag.ssn.loginresult === "")
+		else if($("input[name=\"userrole\"]").val() === "")
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}
 		else if($("input[name=\"userrole\"]").val() === "LoginFailure")
 		{
 			$("#noaccessPanel").fadeIn(300);
-		}else {
+		}
+		else {
 		
 		//ws.send(JSON.stringify({type: 'chainstats', v:1}));
 		console.log("Retrieve list of drivers");
