@@ -29,7 +29,7 @@ var cors = require('cors');
 //// Set Server Parameters ////
 var host = setup.SERVER.HOST;
 var port = setup.SERVER.PORT;
-//var ssn;
+var ssn;
 
 ////////  Pathing and Module Setup  ////////
 app.set('views', path.join(__dirname, 'views'));
@@ -70,7 +70,7 @@ app.use(function(req, res, next){
 	console.log('New ' + req.method + ' request for', req.url);
 	req.bag = {};																			//create object for my stuff
 	req.bag.ssn = req.session;
-	//ssn=req.session;
+	
 	
 	var url_parts = url.parse(req.url, true);
 	req.parameters = url_parts.query;
