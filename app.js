@@ -21,6 +21,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var app = express();
+
+app.use(session({secret:'XASDASDA'}));
+
 var url = require('url');
 var setup = require('./setup');
 var fs = require('fs');

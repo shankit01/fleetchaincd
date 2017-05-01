@@ -683,12 +683,13 @@ $("#updatedriver").click(function(){
 
 
 	$("#pendingdriverlistLink").click(function(){
-		if($("input[name=\"userrole\"]").val() === "Driver"){
+		//if($("input[name=\"userrole\"]").val() === "Driver"){
+		if(bag.ssn.loginresult === "Driver"){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
 		}
-		else if ($("input[name=\"userrole\"]").val() === "")
+		else if(bag.ssn.loginresult === "")
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}
@@ -1036,16 +1037,18 @@ function connect_to_server(){
 
 				if(msgObj.authentication === "failure")
 					{
-						//bag.session.loginresult="LoginFailure";
-						$("input[name=\"userrole\"]").val("LoginFailure");
+						bag.ssn.loginresult="LoginFailure";
+						//$("input[name=\"userrole\"]").val("LoginFailure");
 					}
 				
 				if(msgObj.authentication === "success")
 				{
 					if(msgObj.driver.email==="admin@fleetchain.com")
 						{
-							//bag.session.loginresult="Uber Admin";
-							$("input[name=\"userrole\"]").val("Uber Admin");
+							bag.ssn.loginresult="Uber Admin";
+						
+						
+							//$("input[name=\"userrole\"]").val("Uber Admin");
 							
 							$("#loginuserPanel").hide();
 							$("#driverpendinglistPanel").fadeIn(300);
@@ -1067,8 +1070,9 @@ function connect_to_server(){
 						}
 					else
 						{
-							//bag.session.loginresult="Driver";
-							$("input[name=\"userrole\"]").val("Driver");
+							bag.ssn.loginresult="Driver";
+						
+							//$("input[name=\"userrole\"]").val("Driver");
 							
 							//show driver details
 							$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
