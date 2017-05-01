@@ -867,13 +867,16 @@ function connect_to_server(){
 							$("input[name=\"driverdetailszip\"]").val(msgObj.driver.zip);
 							$("input[name=\"driverdetailsstatus\"]").val(msgObj.driver.status);
 							
+							
+							
+							$("#loginuserPanel").hide();
 							$("#driverdetailsPanel").fadeIn(300);
-							$("#createPanel").hide();
-							$("#signupPanel").hide();
-							$("#driverpendinglistPanel").hide();
-							$("#checkdriverPanel").hide();
-							$("#driverrejectlistPanel").hide();
-							$("#driverapprovallistPanel").hide();
+//							$("#createPanel").hide();
+//							$("#signupPanel").hide();
+//							$("#driverpendinglistPanel").hide();
+//							$("#checkdriverPanel").hide();
+//							$("#driverrejectlistPanel").hide();
+//							$("#driverapprovallistPanel").hide();
 						
 						}
 				
