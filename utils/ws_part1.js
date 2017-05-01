@@ -33,14 +33,14 @@ module.exports.process_msg = function(ws, data){
 		else if(data.type == 'updateapprovereject'){
 			console.log('its a approval process!');
 			//if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_approvereject);	//create a new marble
 			//}
 		}
 		
 		else if(data.type == "updatedriverdetails"){
 			console.log('its a update driver process!');
 			//if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_invoked);	//create a new marble
+				chaincode.invoke.set_status([data.email, data.firstname, data.lastname, data.mobile, data.password, data.street, data.city, data.state, data.zip, data.status], cb_approvereject);	//create a new marble
 			//}
 		}
 		else if(data.type == 'listdriver'){
@@ -83,6 +83,14 @@ module.exports.process_msg = function(ws, data){
 		}
 	}
 	
+	
+	
+	function cb_approvereject(e, a) {
+		if(e != null) console.log('[ws error] Error approving or rejecting or updating a driver:', e);
+		else {
+				chaincode.query.read(['_driverindex'], cb_got_driverindex);
+			}
+	}
 	
 	
 	function cb_got_login(e, loginuserfromcc) {

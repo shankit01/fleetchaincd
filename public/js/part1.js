@@ -208,13 +208,13 @@ $(document).on("ready", function() {
 			
 
 //			now listing approved drivers			
-			var driverlistobj = 	{
-					type: "listdriver",
-					v: 1
-				};
-			
-			console.log("listing drivers, sending", driverlistobj);
-			ws.send(JSON.stringify(driverlistobj));
+//			var driverlistobj = 	{
+//					type: "listdriver",
+//					v: 1
+//				};
+//			
+//			console.log("listing drivers, sending", driverlistobj);
+//			ws.send(JSON.stringify(driverlistobj));
 			
 			$("#driverapproverejectPanel").hide();
 			$("#drlistwrapa").empty();
@@ -304,13 +304,13 @@ $(document).on("ready", function() {
 			
 
 //			now listing approved drivers			
-			var driverlistobj = 	{
-					type: "listdriver",
-					v: 1
-				};
-			
-			console.log("listing drivers, sending", driverlistobj);
-			ws.send(JSON.stringify(driverlistobj));
+//			var driverlistobj = 	{
+//					type: "listdriver",
+//					v: 1
+//				};
+//			
+//			console.log("listing drivers, sending", driverlistobj);
+//			ws.send(JSON.stringify(driverlistobj));
 			
 			$("#driverrejectshowPanel").hide();
 			$("#drlistwrapa").empty();
@@ -419,13 +419,13 @@ $("#rejectdriver").click(function(){
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 
-var driverlistobj = 	{
-				type: "listdriver",
-				v: 1
-			};
-		
-		console.log("listing drivers, sending", driverlistobj);
-		ws.send(JSON.stringify(driverlistobj));
+//var driverlistobj = 	{
+//				type: "listdriver",
+//				v: 1
+//			};
+//		
+//		console.log("listing drivers, sending", driverlistobj);
+//		ws.send(JSON.stringify(driverlistobj));
 		
 		
 //		function onMessage(msg){
@@ -502,13 +502,13 @@ $("#rejectapproveddriver").click(function(){
 //		$('.createball').css('border', '2px dashed #fff');						//reset
 //	}
 
-var driverlistobj = 	{
-			type: "listdriver",
-			v: 1
-		};
-	
-	console.log("listing drivers, sending", driverlistobj);
-	ws.send(JSON.stringify(driverlistobj));
+//var driverlistobj = 	{
+//			type: "listdriver",
+//			v: 1
+//		};
+//	
+//	console.log("listing drivers, sending", driverlistobj);
+//	ws.send(JSON.stringify(driverlistobj));
 	
 	
 //	function onMessage(msg){
