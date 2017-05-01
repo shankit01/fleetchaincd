@@ -840,13 +840,13 @@ function connect_to_server(){
 							console.log("Retrieve list of drivers");
 							$("#drlistwrap").empty();
 							
-							var driverlistobj = 	{
+							var pendingdriverlistobj = {
 									type: "listdriver",
 									v: 1
 								};
 							
-							console.log("listing drivers, sending", driverlistobj);
-							ws.send(JSON.stringify(driverlistobj));
+							console.log("listing drivers, sending", pendingdriverlistobj);
+							ws.send(JSON.stringify(pendingdriverlistobj));
 							showDriverPendingListPanel();
 						
 						}
@@ -867,7 +867,7 @@ function connect_to_server(){
 							$("input[name=\"driverdetailszip\"]").val(msgObj.driver.zip);
 							$("input[name=\"driverdetailsstatus\"]").val(msgObj.driver.status);
 							
-							$("#driverapproverejectPanel").fadeIn(300);
+							$("#driverdetailsPanel").fadeIn(300);
 							$("#createPanel").hide();
 							$("#signupPanel").hide();
 							$("#driverpendinglistPanel").hide();
