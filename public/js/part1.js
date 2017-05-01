@@ -143,8 +143,8 @@ $(document).on("ready", function() {
 		//$("#loginwrap").empty();
 		//showLoginUserPanel();
 		$("input[name=\"userrole\"]").val("");
-		$("input[name=\"username\"]").val("");
-		$("input[name=\"password\"]").val("");
+		$("input[name=\"loginusername\"]").val("");
+		$("input[name=\"loginpassword\"]").val("");
 		showLoginUserPanel();
 
 		return false;
@@ -648,6 +648,9 @@ $("#updatedriver").click(function(){
 	
 	$("#loginuserLink").click(function(){
 		//$("#loginwrap").empty();
+		$("input[name=\"userrole\"]").val("");
+		$("input[name=\"loginusername\"]").val("");
+		$("input[name=\"loginpassword\"]").val("");
 		showLoginUserPanel();
 		//$("input[name=\"userrole\"]").val("");
 	});
