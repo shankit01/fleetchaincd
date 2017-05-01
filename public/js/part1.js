@@ -327,41 +327,44 @@ var driverlistobj = 	{
 		
 		console.log("listing drivers, sending", driverlistobj);
 		ws.send(JSON.stringify(driverlistobj));
-		function onMessage(msg){
-		try{
-			var msgObj = JSON.parse(msg.data);
-			if(msgObj.marble){
-				console.log("rec", msgObj.msg, msgObj);
-				build_ball(msgObj.marble);
-			}
-			if(msgObj.msg === "driverslist"){
-				console.log("Status", msgObj.eachdriver.status);
-				if(msgObj.eachdriver.status == "R"){
-				build_driverr(msgObj.eachdriver);
-			}
+		
+		
+//		function onMessage(msg){
+//		try{
+//			var msgObj = JSON.parse(msg.data);
+//			if(msgObj.marble){
+//				console.log("rec", msgObj.msg, msgObj);
+//				build_ball(msgObj.marble);
+//			}
+//			if(msgObj.msg === "driverslist"){
+//				console.log("Status", msgObj.eachdriver.status);
+//				if(msgObj.eachdriver.status == "R"){
+//				build_driverr(msgObj.eachdriver);
+//			}
+//
+//				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+//				//showDriverApprovalListPanel();		
+//			}
+//			else if(msgObj.msg === "chainstats"){
+//				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
+//				if(msgObj.blockstats && msgObj.blockstats.transactions) {
+//                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
+//                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
+//                    var temp =  {
+//                        id: msgObj.blockstats.height,
+//                        blockstats: msgObj.blockstats
+//                    };
+//                    new_block(temp);								//send to blockchain.js
+//				}
+//			}
+//			else console.log("rec", msgObj.msg, msgObj);
+//		}
+//		catch(e){
+//			console.log("ERROR", e);
+//		}
+//	}
 
-				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
-				//showDriverApprovalListPanel();		
-			}
-			else if(msgObj.msg === "chainstats"){
-				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
-				if(msgObj.blockstats && msgObj.blockstats.transactions) {
-                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
-                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
-                    var temp =  {
-                        id: msgObj.blockstats.height,
-                        blockstats: msgObj.blockstats
-                    };
-                    new_block(temp);								//send to blockchain.js
-				}
-			}
-			else console.log("rec", msgObj.msg, msgObj);
-		}
-		catch(e){
-			console.log("ERROR", e);
-		}
-	}
-
+		$("#drlistwrapr").empty();
 		showDriverRejectListPanel();
 	    $("#driverapproverejectPanel").hide();
 		
