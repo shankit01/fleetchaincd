@@ -693,7 +693,7 @@ $("#updatedriver").click(function(){
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}
-		else if(bag.ssn.loginresult === "LoginFailure")
+		else if($("input[name=\"userrole\"]").val() === "LoginFailure")
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}else {
@@ -718,7 +718,7 @@ $("#updatedriver").click(function(){
 			
 			$("#noaccessPanel").fadeIn(300);
 	
-		}else if(bag.ssn.loginresult === "LoginFailure")
+		}else if($("input[name=\"userrole\"]").val() === "LoginFailure")
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}else if ($("input[name=\"userrole\"]").val() === "")
@@ -749,7 +749,7 @@ $("#updatedriver").click(function(){
 		}else if ($("input[name=\"userrole\"]").val() === "")
 		{
 			$("#noaccessPanel").fadeIn(300);
-		}else if(bag.ssn.loginresult === "LoginFailure")
+		}else if($("input[name=\"userrole\"]").val() === "LoginFailure")
 		{
 			$("#noaccessPanel").fadeIn(300);
 		}else {
