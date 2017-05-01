@@ -856,7 +856,7 @@ $("#updatedriver").click(function(){
 		$("#signupPanel").hide();
 		//$('#createPanel').hide();
 		
-		var part = window.location.pathname.substring(0,4);
+		var part = window.location.pathname.substring(0,3);
 		window.history.pushState({},"", part + "/loginuser");	
 		
 	}
@@ -884,7 +884,7 @@ $("#updatedriver").click(function(){
 		$("#driverapprovallistPanel").hide();
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/pendingdriverdetails");	
+		window.history.pushState({},"", part + "/pendingdrivers");	
 
 	}
 	
@@ -900,7 +900,7 @@ $("#updatedriver").click(function(){
 		
 		var part = window.location.pathname.substring(0,3);
 		//window.history.pushState({},"", part + "/driverdetails");	
-		window.history.pushState({},"", part + "/approvedriverdetails");	
+		window.history.pushState({},"", part + "/approvedrivers");	
 	}
 
  function showDriverRejectListPanel(){
@@ -914,7 +914,7 @@ $("#updatedriver").click(function(){
 			$("#driverapprovallistPanel").hide();
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/rejectdriverdetails");
+		window.history.pushState({},"", part + "/rejectdrivers");
 		
 		//window.history.pushState({},"", part + "/dirverapprovallist");	
 	}
@@ -1268,7 +1268,7 @@ function showdriverdetailsapprove(email){
 			
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/driverdetails");	
+		window.history.pushState({},"", part + "/approvedriverdetails");	
 }
 
 function showdriverdetailsreject(email){
@@ -1292,7 +1292,7 @@ function showdriverdetailsreject(email){
 			
 		
 		var part = window.location.pathname.substring(0,3);
-		window.history.pushState({},"", part + "/driverdetails");	
+		window.history.pushState({},"", part + "/rejectdriverdetails");	
 }
 
 function build_drivera(data){
