@@ -205,56 +205,75 @@ $(document).on("ready", function() {
 //		if(obj.user && obj.name && obj.color){
 			console.log("approve, sending", driverobj);
 			ws.send(JSON.stringify(driverobj));
+			
+
+//			now listing approved drivers			
+			var driverlistobj = 	{
+					type: "listdriver",
+					v: 1
+				};
+			
+			console.log("listing drivers, sending", driverlistobj);
+			ws.send(JSON.stringify(driverlistobj));
+			
+			$("#driverapproverejectPanel").hide();
+			$("#drlistwrapa").empty();
+			showDriverApprovalListPanel();
+			
+			
+			
 //			showHomePanel();
 //			$('.colorValue').html('Color');											//reset
 //			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
 //			$('.createball').css('border', '2px dashed #fff');						//reset
 //		}
 
-           var driverlistobj = 	{
-				type: "listdriver",
-				v: 1
-			};
+//           var driverlistobj = 	{
+//				type: "listdriver",
+//				v: 1
+//			};
+//		
+//		console.log("listing drivers, sending", driverlistobj);
+//		ws.send(JSON.stringify(driverlistobj));
+//		function onMessage(msg){
+//		try{
+//			var msgObj = JSON.parse(msg.data);
+//			if(msgObj.marble){
+//				console.log("rec", msgObj.msg, msgObj);
+//				build_ball(msgObj.marble);
+//			}
+//			if(msgObj.msg === "driverslist"){
+//				console.log("Status", msgObj.eachdriver.status);
+//				if(msgObj.eachdriver.status == "A"){
+//				build_drivera(msgObj.eachdriver);
+//			}
+//
+//				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
+//				//showDriverApprovalListPanel();		
+//			}
+//			else if(msgObj.msg === "chainstats"){
+//				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
+//				if(msgObj.blockstats && msgObj.blockstats.transactions) {
+//                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
+//                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
+//                    var temp =  {
+//                        id: msgObj.blockstats.height,
+//                        blockstats: msgObj.blockstats
+//                    };
+//                    new_block(temp);								//send to blockchain.js
+//				}
+//			}
+//			else console.log("rec", msgObj.msg, msgObj);
+//		}
+//		catch(e){
+//			console.log("ERROR", e);
+//		}
+//	}
+
+//		showDriverApprovalListPanel();
 		
-		console.log("listing drivers, sending", driverlistobj);
-		ws.send(JSON.stringify(driverlistobj));
-		function onMessage(msg){
-		try{
-			var msgObj = JSON.parse(msg.data);
-			if(msgObj.marble){
-				console.log("rec", msgObj.msg, msgObj);
-				build_ball(msgObj.marble);
-			}
-			if(msgObj.msg === "driverslist"){
-				console.log("Status", msgObj.eachdriver.status);
-				if(msgObj.eachdriver.status == "A"){
-				build_drivera(msgObj.eachdriver);
-			}
-
-				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
-				//showDriverApprovalListPanel();		
-			}
-			else if(msgObj.msg === "chainstats"){
-				console.log("rec", msgObj.msg, ": ledger blockheight", msgObj.chainstats.height, "block", msgObj.blockstats.height);
-				if(msgObj.blockstats && msgObj.blockstats.transactions) {
-                    var e = formatDate(msgObj.blockstats.transactions[0].timestamp.seconds * 1000, "%M/%d/%Y &nbsp;%I:%m%P");
-                    $("#blockdate").html("<span style=\"color:#fff\">TIME</span>&nbsp;&nbsp;" + e + " UTC");
-                    var temp =  {
-                        id: msgObj.blockstats.height,
-                        blockstats: msgObj.blockstats
-                    };
-                    new_block(temp);								//send to blockchain.js
-				}
-			}
-			else console.log("rec", msgObj.msg, msgObj);
-		}
-		catch(e){
-			console.log("ERROR", e);
-		}
-	}
-
-		showDriverApprovalListPanel();
-		$("#driverapproverejectPanel").hide();
+		//$("#driverapprovallistPanel").hide();
+		
 		
 		return false;
 	});
