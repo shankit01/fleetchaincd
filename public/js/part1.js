@@ -834,12 +834,46 @@ function connect_to_server(){
 						{
 							//bag.session.loginresult="Uber Admin";
 							$("input[name=\"userrole\"]").val("Uber Admin");
+							
+							//show pending driver list
+							//ws.send(JSON.stringify({type: 'chainstats', v:1}));
+							console.log("Retrieve list of drivers");
+							$("#drlistwrap").empty();
+							
+							var driverlistobj = 	{
+									type: "listdriver",
+									v: 1
+								};
+							
+							console.log("listing drivers, sending", driverlistobj);
+							ws.send(JSON.stringify(driverlistobj));
+							showDriverPendingListPanel();
 						
 						}
 					else
 						{
 							//bag.session.loginresult="Driver";
 							$("input[name=\"userrole\"]").val("Driver");
+							
+							//show driver details
+							$("input[name=\"driverdetailsemail\"]").val(msgObj.driver.email);
+							$("input[name=\"driverdetailsfirstname\"]").val(msgObj.driver.firstname);
+							$("input[name=\"driverdetailslastname\"]").val(msgObj.driver.lastname);
+							$("input[name=\"driverdetailsmobile\"]").val(msgObj.driver.mobile);
+							$("input[name=\"driverdetailspassword\"]").val(msgObj.driver.password);
+							$("input[name=\"driverdetailsstreet\"]").val(msgObj.driver.street);
+							$("input[name=\"driverdetailscity\"]").val(msgObj.driver.city);
+							$("input[name=\"driverdetailsstate\"]").val(msgObj.driver.state);
+							$("input[name=\"driverdetailszip\"]").val(msgObj.driver.zip);
+							$("input[name=\"driverdetailsstatus\"]").val(msgObj.driver.status);
+							
+							$("#driverapproverejectPanel").fadeIn(300);
+							$("#createPanel").hide();
+							$("#signupPanel").hide();
+							$("#driverpendinglistPanel").hide();
+							$("#checkdriverPanel").hide();
+							$("#driverrejectlistPanel").hide();
+							$("#driverapprovallistPanel").hide();
 						
 						}
 				
