@@ -836,7 +836,7 @@ function connect_to_server(){
 							$("input[name=\"userrole\"]").val("Uber Admin");
 							
 							$("#loginuserPanel").hide();
-							$("#driverlistPanel").fadeIn(300);
+							$("#driverpendinglistPanel").fadeIn(300);
 							
 							//show pending driver list
 							//ws.send(JSON.stringify({type: 'chainstats', v:1}));
@@ -850,7 +850,7 @@ function connect_to_server(){
 							
 							console.log("listing drivers, sending", pendingdriverlistobj);
 							ws.send(JSON.stringify(pendingdriverlistobj));
-							showDriverPendingListPanel();
+							//showDriverPendingListPanel();
 						
 						}
 					else
