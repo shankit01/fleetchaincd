@@ -21,9 +21,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var app = express();
-
-app.use(session({secret:'XASDASDA'}));
-
 var url = require('url');
 var setup = require('./setup');
 var fs = require('fs');
@@ -72,7 +69,7 @@ app.use(function(req, res, next){
 	console.log('------------------------------------------ incoming request ------------------------------------------');
 	console.log('New ' + req.method + ' request for', req.url);
 	req.bag = {};																			//create object for my stuff
-	req.bag.session = req.session;
+	req.bag.ssn = req.session;
 	//ssn=req.session;
 	
 	var url_parts = url.parse(req.url, true);
