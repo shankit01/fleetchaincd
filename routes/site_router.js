@@ -21,7 +21,7 @@ function build_bag(){
 				e: process.error,							//send any setup errors
 				jshash: process.env.cachebust_js,			//js cache busting hash (not important)
 				csshash: process.env.cachebust_css,			//css cache busting hash (not important)
-				ssn:null,
+				//ssn:null,
 			};
 }
 
