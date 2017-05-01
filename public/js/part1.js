@@ -835,6 +835,9 @@ function connect_to_server(){
 							//bag.session.loginresult="Uber Admin";
 							$("input[name=\"userrole\"]").val("Uber Admin");
 							
+							$("#loginuserPanel").hide();
+							$("#driverlistPanel").fadeIn(300);
+							
 							//show pending driver list
 							//ws.send(JSON.stringify({type: 'chainstats', v:1}));
 							console.log("Retrieve list of drivers");
