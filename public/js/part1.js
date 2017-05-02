@@ -616,8 +616,18 @@ $("#updatedriver").click(function(){
 	
 
 	$("#checkdriverdetails").click(function(){
+		
 		console.log("checking up driver");
-		var checkdriverobj = {
+		
+		if($("input[name=\"checkdriveremail\"]").val()=="admin@hertz.com")
+		{
+			$("#checkdriverPanel").hide();
+			$("#noaccessPanel").fadeIn(300);
+			
+			
+		}else
+		{
+			var checkdriverobj = {
 						type: "checkdriverdetails",
 						checkdriveremail: $("input[name=\"checkdriveremail\"]").val().replace(" ", ""),
 						v: 1
@@ -636,6 +646,7 @@ $("#updatedriver").click(function(){
 		
 		//$('input[name="driverdetailsemail"]').val(driverdetailsmail);
 		//showDriverDetailsPanel();
+		}
 		
 		return false;
 	});
@@ -1202,17 +1213,27 @@ function connect_to_server(){
 			}
 			if(msgObj.msg === "driverslist"){
 				console.log("Status", msgObj.eachdriver.status);
-				if(msgObj.eachdriver.status == "P"){
-				build_driver(msgObj.eachdriver);
-			}
+				
+				if(msgObj.eachdriver.email=="admin@fleetchain.com")
+				{
+					
+				}else if (msgObj.eachdriver.email=="admin@hertz.com")
+				{
+					
+				}else
+				{
+					if(msgObj.eachdriver.status == "P"){
+						build_driver(msgObj.eachdriver);
+					}
 
-				if(msgObj.eachdriver.status == "A"){
-				build_drivera(msgObj.eachdriver);
-			}
+					if(msgObj.eachdriver.status == "A"){
+						build_drivera(msgObj.eachdriver);
+					}
 
-			if(msgObj.eachdriver.status == "R"){
-				build_driverr(msgObj.eachdriver);
-			}
+					if(msgObj.eachdriver.status == "R"){
+						build_driverr(msgObj.eachdriver);
+					}
+				}
 
 				//$("#driverdetailslist").append(msgObj.eachdriver.email +"<br>");
 				//showDriverApprovalListPanel();		
