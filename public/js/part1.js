@@ -641,6 +641,34 @@ $("#updatedriver").click(function(){
 	});
 	
 	
+	$("#modifydriver").click(function(){
+		console.log("pulling up the driver to modify");
+		var checkdriverobj = {
+						type: "checkdriverdetails",
+						checkdriveremail: $("input[name=\"modifydriveremail\"]").val().replace(" ", ""),
+						v: 1
+					};
+//		if(obj.user && obj.name && obj.color){
+			//console.log('doing sign up, sending', driverobj);
+			ws.send(JSON.stringify(checkdriverobj));
+			showDriverDetailsPanel();
+//			showHomePanel();
+//			$('.colorValue').html('Color');											//reset
+//			for(var i in bgcolors) $('.createball').removeClass(bgcolors[i]);		//reset
+//			$('.createball').css('border', '2px dashed #fff');						//reset
+//		}
+			
+		//var	driverdetailsmail=$('input[name="checkdriveremail"]').val().replace(' ', '');
+		
+		//$('input[name="driverdetailsemail"]').val(driverdetailsmail);
+		showDriverDetailsPanel();
+		
+		return false;
+	});
+	
+	
+	
+	
 	
 	$("#homeLink").click(function(){
 		showHomePanel();
@@ -675,6 +703,35 @@ $("#updatedriver").click(function(){
 	
 	$("#checkdriverLink").click(function(){
 		showcheckdriverPanel();
+	});
+	
+	
+	$("#modifydriverLink").click(function(){
+		if($("input[name=\"userrole\"]").val() === "Driver"){
+			//if(bag.ssn.loginresult === "Driver"){
+				
+				$("#noaccessPanel").fadeIn(300);
+		
+			}
+			else if($("input[name=\"userrole\"]").val() === "")
+			{
+				$("#noaccessPanel").fadeIn(300);
+			}
+			else if($("input[name=\"userrole\"]").val() === "LoginFailure")
+			{
+				$("#noaccessPanel").fadeIn(300);
+			}
+			else {
+				
+				$("#modifydriverPanel").fadeIn(300);
+				$("#createPanel").hide();
+				$("#signupPanel").hide();
+				$("#checkdriverPanel").hide();
+				$("#driverpendinglistPanel").hide();
+				$("#driverrejectlistPanel").hide();
+				$("#driverapprovallistPanel").hide();
+				
+			}
 	});
 	
 	$("#driverdetailsLink").click(function(){
